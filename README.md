@@ -1,0 +1,2 @@
+# SwimmerServer
+Dropwizard server implmentation
