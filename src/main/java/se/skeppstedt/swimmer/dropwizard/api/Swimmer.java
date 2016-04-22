@@ -7,8 +7,9 @@ public class Swimmer {
     private String name;
     private String club;
     private String yearOfBirth;
-
+    
     public Swimmer() {
+    	
     }
 
     public Swimmer(String id, String name, String club, String yearOfBirth) {

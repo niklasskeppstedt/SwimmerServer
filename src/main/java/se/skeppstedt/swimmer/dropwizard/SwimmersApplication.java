@@ -44,8 +44,8 @@ public class SwimmersApplication extends Application<SwimmersConfiguration> {
 		final SwimmersResource resource = new SwimmersResource();
 		environment.jersey().register(resource);
 
-		final TemplateHealthCheck healthCheck = new TemplateHealthCheck(configuration.getTemplate());
-		environment.healthChecks().register("template", healthCheck);
+//		final TemplateHealthCheck healthCheck = new TemplateHealthCheck(configuration.getTemplate());
+//		environment.healthChecks().register("template", healthCheck);
 		
 	}
 
