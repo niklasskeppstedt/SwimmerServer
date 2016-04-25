@@ -1,5 +1,9 @@
 package se.skeppstedt.swimmer.dropwizard;
 
+import io.dropwizard.Application;
+import io.dropwizard.setup.Bootstrap;
+import io.dropwizard.setup.Environment;
+
 import java.util.EnumSet;
 
 import javax.servlet.DispatcherType;
@@ -7,10 +11,7 @@ import javax.servlet.FilterRegistration;
 
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 
-import io.dropwizard.Application;
-import io.dropwizard.setup.Bootstrap;
-import io.dropwizard.setup.Environment;
-import se.skeppstedt.swimmer.dropwizard.health.TemplateHealthCheck;
+import se.skeppstedt.swimmer.dropwizard.resources.PersonalBestResource;
 import se.skeppstedt.swimmer.dropwizard.resources.SwimmersResource;
 
 public class SwimmersApplication extends Application<SwimmersConfiguration> {
@@ -43,6 +44,8 @@ public class SwimmersApplication extends Application<SwimmersConfiguration> {
 	    
 		final SwimmersResource resource = new SwimmersResource();
 		environment.jersey().register(resource);
+		final PersonalBestResource pbResource = new PersonalBestResource();
+		environment.jersey().register(pbResource);
 
 //		final TemplateHealthCheck healthCheck = new TemplateHealthCheck(configuration.getTemplate());
 //		environment.healthChecks().register("template", healthCheck);
