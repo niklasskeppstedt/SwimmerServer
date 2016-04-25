@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonFormat(shape= JsonFormat.Shape.OBJECT)
 public enum Discipline {
-	BREASTSTROKE("Bröstsim"),
+	BREASTSTROKE("BrÃ¶stsim"),
 	BACKSTROKE("Ryggsim"),
-	BUTTERFLY("Fjärilssim"),
+	BUTTERFLY("FjÃ¤rilssim"),
 	FREESTYLE("Frisim"), 
 	MEDLEY("Medley");
 	

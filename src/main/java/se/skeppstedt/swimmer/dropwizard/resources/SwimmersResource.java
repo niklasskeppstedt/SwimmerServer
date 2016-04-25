@@ -32,7 +32,7 @@ public class SwimmersResource {
 	
 	private static HashMap<String, Swimmer> swimmerDao = new HashMap<>();
 	static {
-		Swimmer swimmer = new Swimmer("1234", "Elias Skeppstedt", "Täby", "1999");
+		Swimmer swimmer = new Swimmer("1234", "Elias Skeppstedt", "TÃ¤by", "1999");
 		swimmerDao.put("1234", swimmer);
 		swimmer = new Swimmer("2345", "Otto Lundberg", "SKK", "2003");
 		swimmerDao.put("2345", swimmer);
