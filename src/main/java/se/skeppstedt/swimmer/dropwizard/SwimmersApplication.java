@@ -13,6 +13,7 @@ import org.eclipse.jetty.servlets.CrossOriginFilter;
 
 import se.skeppstedt.swimmer.dropwizard.resources.PersonalBestResource;
 import se.skeppstedt.swimmer.dropwizard.resources.SwimmersResource;
+import se.skeppstedt.swimmer.dropwizard.resources.UserResource;
 
 public class SwimmersApplication extends Application<SwimmersConfiguration> {
 	public static void main(String[] args) throws Exception {
@@ -46,6 +47,8 @@ public class SwimmersApplication extends Application<SwimmersConfiguration> {
 		environment.jersey().register(resource);
 		final PersonalBestResource pbResource = new PersonalBestResource();
 		environment.jersey().register(pbResource);
+		final UserResource userResource = new UserResource();
+		environment.jersey().register(userResource);
 
 //		final TemplateHealthCheck healthCheck = new TemplateHealthCheck(configuration.getTemplate());
 //		environment.healthChecks().register("template", healthCheck);
