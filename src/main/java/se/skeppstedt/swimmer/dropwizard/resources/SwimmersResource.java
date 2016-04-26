@@ -1,6 +1,5 @@
 package se.skeppstedt.swimmer.dropwizard.resources;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +20,8 @@ import javax.ws.rs.core.MediaType;
 
 import se.skeppstedt.swimmer.dropwizard.api.PersonalBest;
 import se.skeppstedt.swimmer.dropwizard.api.Swimmer;
+import se.skeppstedt.swimmer.octo.OctoDocumentProvider;
+import se.skeppstedt.swimmer.octo.OctoParser;
 
 import com.codahale.metrics.annotation.Timed;
 
@@ -76,15 +77,19 @@ public class SwimmersResource {
     @Consumes(MediaType.APPLICATION_JSON)
 	// Example: POST
 	public Collection<Swimmer> searchSwimmer(Swimmer swimmerSearch) {
-		Collection<Swimmer> values = swimmerDao.values();
-		Stream<Swimmer> stream = values.stream();
-		List<Swimmer> collected = stream
-			.filter(s -> swimmerSearch.getName() == null || swimmerSearch.getName().isEmpty() || s.getName().contains(swimmerSearch.getName()))
-			.filter(s -> swimmerSearch.getClub() == null || swimmerSearch.getClub().isEmpty() || s.getClub().contains(swimmerSearch.getClub()))
-			.filter(s -> swimmerSearch.getId() == null || swimmerSearch.getId().isEmpty() || s.getId().equals(swimmerSearch.getId()))
-			.filter(s -> swimmerSearch.getYearOfBirth() == null || swimmerSearch.getYearOfBirth().isEmpty() || s.getYearOfBirth().equals(swimmerSearch.getYearOfBirth()))
-			.collect(Collectors.toList());
-		return collected;
+		String[] names = swimmerSearch.getName().split(" ");
+		String searchUrl = OctoDocumentProvider.createSearchUrl(names[0], names[1], swimmerSearch.getClub(), swimmerSearch.getYearOfBirth());
+		OctoParser parser = new OctoParser(new OctoDocumentProvider(searchUrl));
+		return parser.search();
+//		Collection<Swimmer> values = swimmerDao.values();
+//		Stream<Swimmer> stream = values.stream();
+//		List<Swimmer> collected = stream
+//			.filter(s -> swimmerSearch.getName() == null || swimmerSearch.getName().isEmpty() || s.getName().contains(swimmerSearch.getName()))
+//			.filter(s -> swimmerSearch.getClub() == null || swimmerSearch.getClub().isEmpty() || s.getClub().contains(swimmerSearch.getClub()))
+//			.filter(s -> swimmerSearch.getId() == null || swimmerSearch.getId().isEmpty() || s.getId().equals(swimmerSearch.getId()))
+//			.filter(s -> swimmerSearch.getYearOfBirth() == null || swimmerSearch.getYearOfBirth().isEmpty() || s.getYearOfBirth().equals(swimmerSearch.getYearOfBirth()))
+//			.collect(Collectors.toList());
+//		return collected;
 	}
 
     @POST
