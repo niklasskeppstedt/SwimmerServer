@@ -13,8 +13,15 @@ import org.eclipse.jetty.servlets.CrossOriginFilter;
 
 import se.skeppstedt.swimmer.dropwizard.resources.PersonalBestResource;
 import se.skeppstedt.swimmer.dropwizard.resources.SwimmersResource;
+import se.skeppstedt.swimmer.guice.SwimmersModule;
+
+import com.hubspot.dropwizard.guice.GuiceBundle;
 
 public class SwimmersApplication extends Application<SwimmersConfiguration> {
+
+	private GuiceBundle<SwimmersConfiguration> guiceBundle;
+
+	
 	public static void main(String[] args) throws Exception {
 		new SwimmersApplication().run(args);
 	}
@@ -26,6 +33,12 @@ public class SwimmersApplication extends Application<SwimmersConfiguration> {
 
 	@Override
 	public void initialize(Bootstrap<SwimmersConfiguration> bootstrap) {
+		   guiceBundle = GuiceBundle.<SwimmersConfiguration>newBuilder()
+				      .addModule(new SwimmersModule())
+				      .setConfigClass(SwimmersConfiguration.class)
+				      .build();
+
+		   bootstrap.addBundle(guiceBundle);		
 	}
 
 	@Override

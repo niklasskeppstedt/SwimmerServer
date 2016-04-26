@@ -24,16 +24,16 @@ public class PersonalBestResource {
 	private static HashMap<String, List<PersonalBest>> repo = new HashMap<>();
 	static {
 		ArrayList<PersonalBest> personalBests = new ArrayList<>();
-		personalBests.add(new PersonalBest(Event.BACKSTROKE_100,Duration.ofMinutes(0).plusSeconds(32).plusMillis(320), "VÃ¥rsimiaden", new Date(), "1234"));
-		personalBests.add(new PersonalBest(Event.FREESTYLE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"VÃ¥rsimiaden", new Date(), "1234"));
-		personalBests.add(new PersonalBest(Event.BUTTERFLY_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"VÃ¥rsimiaden", new Date(), "1234"));
-		personalBests.add(new PersonalBest(Event.BREASTSTROKE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"VÃ¥rsimiaden", new Date(), "1234"));
+		personalBests.add(new PersonalBest(Event.BACKSTROKE_100,Duration.ofMinutes(0).plusSeconds(32).plusMillis(320), "Vårsimiaden", new Date(), "1234"));
+		personalBests.add(new PersonalBest(Event.FREESTYLE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"Vårsimiaden", new Date(), "1234"));
+		personalBests.add(new PersonalBest(Event.BUTTERFLY_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"Vårsimiaden", new Date(), "1234"));
+		personalBests.add(new PersonalBest(Event.BREASTSTROKE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"Vårsimiaden", new Date(), "1234"));
 		repo.put("1234", personalBests);
 		personalBests = new ArrayList<>();
-		personalBests.add(new PersonalBest(Event.BACKSTROKE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"VÃ¥rsimiaden", new Date(), "2345"));
-		personalBests.add(new PersonalBest(Event.FREESTYLE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"VÃ¥rsimiaden", new Date(), "2345"));
-		personalBests.add(new PersonalBest(Event.BUTTERFLY_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"VÃ¥rsimiaden", new Date(), "2345"));
-		personalBests.add(new PersonalBest(Event.BREASTSTROKE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"VÃ¥rsimiaden", new Date(), "2345"));
+		personalBests.add(new PersonalBest(Event.BACKSTROKE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"Vårsimiaden", new Date(), "2345"));
+		personalBests.add(new PersonalBest(Event.FREESTYLE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"Vårsimiaden", new Date(), "2345"));
+		personalBests.add(new PersonalBest(Event.BUTTERFLY_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"Vårsimiaden", new Date(), "2345"));
+		personalBests.add(new PersonalBest(Event.BREASTSTROKE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"Vårsimiaden", new Date(), "2345"));
 		repo.put("2345", personalBests);
 	}
 
