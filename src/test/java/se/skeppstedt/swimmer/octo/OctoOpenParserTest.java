@@ -12,12 +12,14 @@ import org.junit.Test;
 import se.skeppstedt.swimmer.dropwizard.api.Event;
 import se.skeppstedt.swimmer.dropwizard.api.PersonalBest;
 import se.skeppstedt.swimmer.dropwizard.api.Swimmer;
+import se.skeppstedt.swimmer.octo.OctoParser;
+import se.skeppstedt.swimmer.octo.impl.OctoOpenParserImpl;
 
-public class OctoParserTest {
+public class OctoOpenParserTest {
 	@Test
 	public void whenFetchingEliasSkeppstedtASwimmerWithPersonalBestsIsReturned() throws Exception {
-		OctoParser testee = new OctoParser(new FileDocumentProvider("swimmerDetails.html"));
-		Swimmer swimmer = testee.getSwimmerDetails();
+		OctoParser testee = new FileOctoParser("swimmerDetails.html");
+		Swimmer swimmer = testee.getSwimmerDetails("297358");
 		assertEquals("Elias Skeppstedt", swimmer.getName());
 		assertEquals("Stockholms Kappsimningsklubb", swimmer.getClub());
 		assertEquals("297358", swimmer.getId());
@@ -37,8 +39,8 @@ public class OctoParserTest {
 
 	@Test
 	public void whenFetchingOnlineEliasSkeppstedtASwimmerWithPersonalBestsIsReturned() throws Exception {
-		OctoParser testee = new OctoParser(new SwimmerDetailsProvider("297358"));
-		Swimmer swimmer = testee.getSwimmerDetails();
+		OctoParser testee = new OctoOpenParserImpl();
+		Swimmer swimmer = testee.getSwimmerDetails("297358");
 		assertEquals("Elias Skeppstedt", swimmer.getName());
 		assertEquals("Stockholms Kappsimningsklubb", swimmer.getClub());
 		assertEquals("297358", swimmer.getId());
@@ -58,8 +60,8 @@ public class OctoParserTest {
 
 	@Test
 	public void whenSearchingEliasSkeppstedtAListWithOneSwimmerIsReturned() {
-		OctoParser testee = new OctoParser(new FileDocumentProvider("searchResult.html"));
-		Set<Swimmer> searchResult = testee.searchSwimmers();
+		OctoParser testee = new FileOctoParser("searchResult.html");
+		Set<Swimmer> searchResult = testee.searchSwimmers("Elias", "Skeppstedt", "", "");
 		searchResult.forEach(s -> {
 			//Test parsing for one known swimmer
 			if(s.getId().equals("297358"))
@@ -72,9 +74,9 @@ public class OctoParserTest {
 	
 	@Test
 	public void whenSearchingOnlineEliasSkeppstedtAListWithOneSwimmerIsReturned() throws UnsupportedEncodingException {
-		OctoParser testee = new OctoParser(new SearchSwimmerProvider("Elias", "Skeppstedt", "", ""));
+		OctoParser testee = new OctoOpenParserImpl();
 
-		Set<Swimmer> searchResult = testee.searchSwimmers();
+		Set<Swimmer> searchResult = testee.searchSwimmers("Elias", "Skeppstedt", "", "");
 		searchResult.forEach(s -> {
 			//Test parsing for one known swimmer
 			if(s.getId().equals("297358"))

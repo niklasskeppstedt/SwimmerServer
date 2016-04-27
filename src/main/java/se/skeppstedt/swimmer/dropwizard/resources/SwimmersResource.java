@@ -3,9 +3,8 @@ package se.skeppstedt.swimmer.dropwizard.resources;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -20,27 +19,20 @@ import javax.ws.rs.core.MediaType;
 
 import se.skeppstedt.swimmer.dropwizard.api.PersonalBest;
 import se.skeppstedt.swimmer.dropwizard.api.Swimmer;
-import se.skeppstedt.swimmer.octo.OctoDocumentProvider;
 import se.skeppstedt.swimmer.octo.OctoParser;
-import se.skeppstedt.swimmer.octo.SearchSwimmerProvider;
 
 import com.codahale.metrics.annotation.Timed;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/swimmers")
 public class SwimmersResource {
-//    private final AtomicLong counter;
+
 	@Context private ResourceContext rc;
 	
+	@Inject
+	private OctoParser parser;
+	
 	private static HashMap<String, Swimmer> swimmerDao = new HashMap<>();
-/*
-	static {
-		Swimmer swimmer = new Swimmer("1234", "Elias Skeppstedt", "Täby", "1999");
-		swimmerDao.put("1234", swimmer);
-		swimmer = new Swimmer("2345", "Otto Lundberg", "SKK", "2003");
-		swimmerDao.put("2345", swimmer);
-	}
-*/
 
     @GET
     @Timed
@@ -68,8 +60,7 @@ public class SwimmersResource {
 	// Example: POST
 	public Collection<Swimmer> searchSwimmer(Swimmer swimmerSearch) {
 		String[] names = swimmerSearch.getName().split(" ");
-		OctoParser parser = new OctoParser(new SearchSwimmerProvider(names[0], names[1], swimmerSearch.getClub(), swimmerSearch.getYearOfBirth()));
-		return parser.searchSwimmers();
+		return parser.searchSwimmers(names[0], names[1], swimmerSearch.getClub(), swimmerSearch.getYearOfBirth());
 	}
 
     @POST

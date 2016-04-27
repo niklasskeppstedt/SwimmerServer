@@ -1,12 +1,13 @@
 package se.skeppstedt.swimmer.guice;
 
-import com.google.inject.Binder;
-import com.google.inject.Module;
+import se.skeppstedt.swimmer.octo.OctoParser;
+import se.skeppstedt.swimmer.octo.impl.OctoOpenParserImpl;
 
-public class SwimmersModule implements Module {
+import com.google.inject.AbstractModule;
 
+public class SwimmersModule extends AbstractModule {
 	@Override
-	public void configure(Binder binder) {
+	protected void configure() {
+		bind(OctoParser.class).to(OctoOpenParserImpl.class);
 	}
-
 }

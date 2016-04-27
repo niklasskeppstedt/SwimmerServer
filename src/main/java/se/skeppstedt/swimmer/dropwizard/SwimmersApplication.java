@@ -16,6 +16,8 @@ import se.skeppstedt.swimmer.dropwizard.resources.SwimmersResource;
 import se.skeppstedt.swimmer.dropwizard.resources.UserResource;
 import se.skeppstedt.swimmer.guice.SwimmersModule;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 
 public class SwimmersApplication extends Application<SwimmersConfiguration> {
@@ -65,6 +67,9 @@ public class SwimmersApplication extends Application<SwimmersConfiguration> {
 
 //		final TemplateHealthCheck healthCheck = new TemplateHealthCheck(configuration.getTemplate());
 //		environment.healthChecks().register("template", healthCheck);
+		
+		//GUICE INJECTOR
+		Guice.createInjector(new SwimmersModule());
 		
 	}
 

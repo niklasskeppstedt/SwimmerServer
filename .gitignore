@@ -4,3 +4,4 @@
 .settings
 Swimmer.iml
 target/*
+/target/
