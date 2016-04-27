@@ -1,6 +1,5 @@
 package se.skeppstedt.swimmer.dropwizard.resources;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +20,8 @@ import javax.ws.rs.core.MediaType;
 
 import se.skeppstedt.swimmer.dropwizard.api.PersonalBest;
 import se.skeppstedt.swimmer.dropwizard.api.Swimmer;
+import se.skeppstedt.swimmer.octo.OctoDocumentProvider;
+import se.skeppstedt.swimmer.octo.OctoParser;
 
 import com.codahale.metrics.annotation.Timed;
 
@@ -31,36 +32,25 @@ public class SwimmersResource {
 	@Context private ResourceContext rc;
 	
 	private static HashMap<String, Swimmer> swimmerDao = new HashMap<>();
+/*
 	static {
 		Swimmer swimmer = new Swimmer("1234", "Elias Skeppstedt", "Täby", "1999");
 		swimmerDao.put("1234", swimmer);
 		swimmer = new Swimmer("2345", "Otto Lundberg", "SKK", "2003");
 		swimmerDao.put("2345", swimmer);
 	}
+*/
 
     @GET
     @Timed
     @Path("/{id}")
     //Example: GET http://localhost:9000/swimmers/111
     public Swimmer getSwimmer(@PathParam("id") String id) {
-    	Swimmer swimmer = swimmerDao.get(id);
+		Swimmer swimmer = swimmerDao.get(id);
+		PersonalBestResource resource = rc.getResource(PersonalBestResource.class);
+		List<PersonalBest> personalBestsForSwimmer = resource.getPersonalBestsForSwimmer(id);
+		swimmer.setPersonalBests(personalBestsForSwimmer);
 		return swimmer;
-    }
-
-    @GET
-    @Timed
-    @Path("/{id}/personalbests")
-    //Example: GET http://localhost:9000/swimmers/111/personalbests
-    public Swimmer getSwimmerWithPersonalBests(@PathParam("id") String id) {
-    	Swimmer swimmer = swimmerDao.get(id);
-    	try{
-	    	PersonalBestResource resource = rc.getResource(PersonalBestResource.class);
-	    	List<PersonalBest> personalBestsForSwimmer = resource.getPersonalBestsForSwimmer(id);
-	    	swimmer.setPersonalBests(personalBestsForSwimmer);
-			return swimmer;
-    	} finally {
-    		//swimmer.setPersonalBests(new ArrayList<>());
-    	}
     }
 
     @GET
@@ -76,15 +66,10 @@ public class SwimmersResource {
     @Consumes(MediaType.APPLICATION_JSON)
 	// Example: POST
 	public Collection<Swimmer> searchSwimmer(Swimmer swimmerSearch) {
-		Collection<Swimmer> values = swimmerDao.values();
-		Stream<Swimmer> stream = values.stream();
-		List<Swimmer> collected = stream
-			.filter(s -> swimmerSearch.getName() == null || swimmerSearch.getName().isEmpty() || s.getName().contains(swimmerSearch.getName()))
-			.filter(s -> swimmerSearch.getClub() == null || swimmerSearch.getClub().isEmpty() || s.getClub().contains(swimmerSearch.getClub()))
-			.filter(s -> swimmerSearch.getId() == null || swimmerSearch.getId().isEmpty() || s.getId().equals(swimmerSearch.getId()))
-			.filter(s -> swimmerSearch.getYearOfBirth() == null || swimmerSearch.getYearOfBirth().isEmpty() || s.getYearOfBirth().equals(swimmerSearch.getYearOfBirth()))
-			.collect(Collectors.toList());
-		return collected;
+		String[] names = swimmerSearch.getName().split(" ");
+		String searchUrl = OctoDocumentProvider.createSearchUrl(names[0], names[1], swimmerSearch.getClub(), swimmerSearch.getYearOfBirth());
+		OctoParser parser = new OctoParser(new OctoDocumentProvider(searchUrl));
+		return parser.search();
 	}
 
     @POST

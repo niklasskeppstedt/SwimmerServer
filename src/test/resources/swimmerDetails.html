@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" href="css/gridview/gridviewstyle.css" />
+<link rel="stylesheet" type="text/css" href="css/pager.css" />
+<script type="text/javascript" src="/assets/1a25f3fb/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/1a25f3fb/jquery.yii.js"></script>
+<script type="text/javascript" src="/assets/1a25f3fb/jquery.ba-bbq.js"></script>
+<title>OctoOpen - Elias Skeppstedt</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+  <!--  -->
+  	<link rel="stylesheet" type="text/css" href="/css/base.css" />
+  	<link rel="stylesheet" type="text/css" href="/css/admin.css" />
+  	<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+  	<link rel="stylesheet" type="text/css" href="/css/skeleton.css" />
+  	<link rel="stylesheet" type="text/css" href="/css/GoogleLikeForms.css" />
+
+	<!-- JS
+	================================================== -->
+
+	<!-- dropdown select -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			
+				// Create the dropdown bases
+				$("<select />").appendTo(".navigation div");
+				
+				// Create default option "Go to..."
+				$("<option />", {
+				   "selected": "selected",
+				   "value"   : "",
+				   "text"    : "Navigera till..."
+				}).appendTo(".navigation select");
+				
+				
+				// Populate dropdowns with the first menu items
+				$(".navigation li a").each(function() {
+				 	var el = $(this);
+				 	$("<option />", {
+				     	"value"   : el.attr("href"),
+				    	"text"    : el.text()
+				 	}).appendTo(".navigation select");
+				});
+				
+				//make responsive dropdown menu actually work			
+		      	$(".navigation select").change(function() {
+		        	window.location = $(this).find("option:selected").val();
+		      	});
+
+		});
+	</script>
+	
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+ 
+</head>
+
+<body>
+
+<!-- Primary Page Layout
+	================================================== -->
+
+<div class="wrapper">
+
+<div class="topmenu"></div>
+<div class="top-image"></div>
+
+<div class="band top">
+<div class="container">
+<div class="header">
+	
+	<div class="row">
+
+		<div class="five columns">
+		
+			<div class="site-logo"><img src="images/svensksimidrott.png" alt="logo"></div>
+
+			<div class="language-widget">
+				<form action="/index.php?r=swimmer/view&amp;id=297358" method="post">    <div id="langform_en">
+          
+        <input type="hidden" value="en" name="_lang" id="_lang" />        
+        <input type="submit" name="yt0" value="En" />          
+    </div>
+</form>
+<form action="/index.php?r=swimmer/view&amp;id=297358" method="post">    <div id="langform_sv">
+          
+        <input type="hidden" value="sv" name="_lang" id="_lang" />        
+        <input type="submit" name="yt1" value="Sv" />          
+    </div>
+</form>			</div>
+
+		</div>
+	</div>
+	
+</div><!--header -->
+
+<div class="navigation">
+
+	<div class="columns">
+
+		<ul class="nav" id="yw3">
+<li><a href="/index.php?r=site/index">Hem</a></li>
+<li><a href="/index.php?r=Result">Statistik</a></li>
+<li><a href="/index.php?r=Competition">Tävlingar</a></li>
+<li class="active"><a href="/index.php?r=Swimmer">Simidrottare</a></li>
+<li><a href="http://iof3.idrottonline.se/SvenskaSimforbundet/Forforeningar/Hittaklubbaroc
+hdistrikt/">Föreningar</a></li>
+<li><a href="/index.php?r=ChangeClub">Föreningsbyten</a></li>
+<li><a href="http://www.simforbundet.se">Till SSFs hemsida</a></li>
+</ul>	
+	</div>
+	
+	
+	
+</div><!-- container navigation -->
+</div><!-- container -->
+</div><!-- band -->
+
+<div class="container main">
+
+	<div id="fullwidth" class="content">
+	<div class="greyband">
+<div class="mobile-container">
+<div class="sixteen columns">
+
+
+
+
+<h2>Elias Skeppstedt</h2>
+
+
+Status: Aktiv Simmare</br>
+</div>
+
+<div class="clearfix">
+<div class="ten columns">
+
+Född: 2003</br>
+Förening: Stockholms Kappsimningsklubb</br>
+Licens: AG3903
+</div>
+
+
+
+<div class="four columns search-form">
+<form class="GoogleLikeForms GLF-blue" id="yw0" action="/index.php?r=swimmer/view" method="get">
+<div style="display:none"><input type="hidden" value="swimmer/view" name="r" /></div>
+			
+	<select name="ResultSwim[result_date]" id="ResultSwim_result_date">
+<option value="">Personbästa</option>
+<option value="2016">2016</option>
+<option value="2015">2015</option>
+<option value="2014">2014</option>
+<option value="2013">2013</option>
+<option value="2012">2012</option>
+</select>
+	
+</form></div>
+
+<div class="two columns">
+<div class="pdfbutton" style="float:left;margin-top:10px;"><a id="pdf_button" href="#">PDF</a></div></div>
+</div>
+
+
+</div><!-- mobile-container -->
+</div><!-- greyband -->
+
+<div class="mobile-container">
+
+<div class="eight columns">
+
+<h3 class="course">Kortbana (25m)</h3><div style="cursor: pointer;" id="swimmerview-grid" class="grid-view">
+<table class="table table-striped table-hover items">
+<thead>
+<tr>
+<th id="swimmerview-grid_c0">Gren</th><th id="swimmerview-grid_c1">Tävling</th><th id="swimmerview-grid_c2">Datum</th><th id="swimmerview-grid_c3">Tid</th><th class="button-column" id="swimmerview-grid_c4">&nbsp;</th></tr>
+</thead>
+<tbody>
+<tr class="odd"><td class="name-column">25m Frisim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=4">Swimmer</a></div></td><td class="mobile-hide-small">Freestyle Cup</td><td>2012-04-15</td><td>00:25.72
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=4"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="even"><td class="name-column">25m Fjärilsim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=7">Swimmer</a></div></td><td class="mobile-hide-small">Vårsimiade...</td><td>2013-04-21</td><td>00:24.08
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=7"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="odd"><td class="name-column">50m Frisim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=11">Swimmer</a></div></td><td class="mobile-hide-small">Aquarapid ...</td><td>2015-10-18</td><td>00:33.49
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=11"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="even"><td class="name-column">100m Frisim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=13">Swimmer</a></div></td><td class="mobile-hide-small">UGP 2</td><td>2016-03-12</td><td>01:12.87
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=13"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="odd"><td class="name-column">200m Frisim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=15">Swimmer</a></div></td><td class="mobile-hide-small">Freestyle ...</td><td>2016-01-31</td><td>02:41.66
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=15"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="even"><td class="name-column">400m Frisim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=17">Swimmer</a></div></td><td class="mobile-hide-small">Vårsimiade...</td><td>2016-04-23</td><td>05:28.80
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=17"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="odd"><td class="name-column">800m Frisim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=19">Swimmer</a></div></td><td class="mobile-hide-small">UGP 1 - 2016</td><td>2016-01-30</td><td>11:34.09
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=19"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="even"><td class="name-column">1500m Frisim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=21">Swimmer</a></div></td><td class="mobile-hide-small">UGP 2</td><td>2016-03-13</td><td>21:14.94
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=21"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="odd"><td class="name-column">50m Bröstsim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=31">Swimmer</a></div></td><td class="mobile-hide-small">Arne Borgs...</td><td>2015-09-27</td><td>00:46.66
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=31"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="even"><td class="name-column">100m Bröstsim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=33">Swimmer</a></div></td><td class="mobile-hide-small">Tyresö Knatte</td><td>2016-02-20</td><td>01:36.35
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=33"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="odd"><td class="name-column">200m Bröstsim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=35">Swimmer</a></div></td><td class="mobile-hide-small">UGP 2</td><td>2016-03-13</td><td>03:25.65
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=35"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="even"><td class="name-column">50m Ryggsim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=41">Swimmer</a></div></td><td class="mobile-hide-small">Tureberg k...</td><td>2015-11-07</td><td>00:40.25
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=41"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="odd"><td class="name-column">100m Ryggsim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=43">Swimmer</a></div></td><td class="mobile-hide-small">Vårsimiade...</td><td>2016-04-23</td><td>01:23.05
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=43"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="even"><td class="name-column">50m Fjärilsim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=51">Swimmer</a></div></td><td class="mobile-hide-small">Seriesim d...</td><td>2015-11-29</td><td>00:36.89
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=51"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="odd"><td class="name-column">100m Fjärilsim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=53">Swimmer</a></div></td><td class="mobile-hide-small">Aquarapid ...</td><td>2015-10-18</td><td>01:27.42
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=53"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="even"><td class="name-column">100m Medley<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=61">Swimmer</a></div></td><td class="mobile-hide-small">Tyresö Knatte</td><td>2016-02-20</td><td>01:22.13
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=61"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="odd"><td class="name-column">200m Medley<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=63">Swimmer</a></div></td><td class="mobile-hide-small">UGP 2</td><td>2016-03-12</td><td>02:57.35
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=63"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+</tbody>
+</table><div class="keys" style="display:none" title="/index.php?r=swimmer/view&amp;id=297358"><span>5787871</span><span>6109272</span><span>6945749</span><span>7078506</span><span>7031762</span><span>7123637</span><span>7034332</span><span>7078510</span><span>6912502</span><span>7049403</span><span>7078509</span><span>6961135</span><span>7123634</span><span>6985489</span><span>6945725</span><span>7049402</span><span>7078508</span></div>
+</div>
+</div>
+
+<div class="eight columns">
+
+<h3 class="course">Långbana (50m)</h3><div style="cursor: pointer;" id="swimmerviewlong-grid" class="grid-view">
+<table class="table table-striped table-hover items">
+<thead>
+<tr>
+<th id="swimmerviewlong-grid_c0">Gren</th><th id="swimmerviewlong-grid_c1">Tävling</th><th id="swimmerviewlong-grid_c2">Datum</th><th id="swimmerviewlong-grid_c3">Tid</th><th class="button-column" id="swimmerviewlong-grid_c4">&nbsp;</th></tr>
+</thead>
+<tbody>
+<tr class="odd"><td class="name-column">50m Frisim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=12">Swimmer</a></div></td><td class="mobile-hide-small">NUSS Äldre...</td><td>2015-07-05</td><td>00:34.58
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=12"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="even"><td class="name-column">100m Frisim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=14">Swimmer</a></div></td><td class="mobile-hide-small">UGP 3  - 2015</td><td>2015-05-30</td><td>01:19.93
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=14"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="odd"><td class="name-column">200m Frisim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=16">Swimmer</a></div></td><td class="mobile-hide-small">UGP 3  - 2015</td><td>2015-05-31</td><td>02:52.16
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=16"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="even"><td class="name-column">50m Bröstsim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=32">Swimmer</a></div></td><td class="mobile-hide-small">NUSS Äldre...</td><td>2015-07-05</td><td>00:49.95
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=32"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+<tr class="odd"><td class="name-column">50m Fjärilsim<div style="display:none"><a href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=52">Swimmer</a></div></td><td class="mobile-hide-small">NUSS Äldre...</td><td>2015-07-03</td><td>00:38.37
+&nbsp;</td><td class="mobile-hide-big"><a class="view" title="Visa" href="/index.php?r=swimmer/distance&amp;id=297358&amp;event=52"><img src="/assets/c6b6526b/gridview/view.png" alt="Visa" /></a></td></tr>
+</tbody>
+</table><div class="keys" style="display:none" title="/index.php?r=swimmer/view&amp;id=297358"><span>6869423</span><span>6842014</span><span>6842013</span><span>6869422</span><span>6869421</span></div>
+</div>
+</div>
+
+<div class="sixteen columns">
+
+
+
+</div>
+</div> <!-- mobile-container --></div><!-- content -->
+	
+</div><!-- main -->
+
+<div class="push"></div>
+
+</div><!-- END wrapper -->
+
+<div class="band footer">
+<div class="container">
+
+	<div id="footer">
+	
+		<div class="footer-left2 mobile-hide"><img width="150" src="/images/svensksimidrott.png" ></div>
+		<div class="footer-left">
+			<strong>Postadress</strong></br>
+			Svenska Simförbundet</br>
+			Heliosgatan 3</br>
+			120 30 Stockholm
+		</div>
+		<div class="footer-left3">
+			<strong>Kontakt</strong></br>
+			Tel: 010 476 53 00</br>
+			E-post: <a href="mailto:info@svensksimidrott.se">info@svensksimidrott.se</a>
+		</div>
+	</div><!-- footer -->
+
+</div><!-- container -->
+</div><!-- band -->
+
+<div id="ads">
+
+
+<div class="ad1">
+	<a target="_blank" href="http://www.tyrsverige.se/"><img src="/images/TYR_140320.gif" alt="TYRx" /></a></div>
+
+<div class="ad2">
+	<a target="_blank" href="http://www.olanderswim.se/"><img src="/images/1_olanderswim_trio.gif" alt="Olanderx" /></a></div>
+
+<div class="ad3">
+	</div>
+
+<div class="ad4">
+	</div>
+
+<div class="ad5">
+	</div>
+
+</div>
+
+<!-- End Document
+================================================== -->
+<script type="text/javascript" src="/assets/c6b6526b/gridview/jquery.yiigridview.js"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+jQuery(function($) {
+
+$('.search-form form').submit(function(){
+	$.fn.yiiGridView.update('swimmerview-grid', {
+		data: $(this).serialize()
+	});
+	return false;
+});
+$('.search-form form').submit(function(){
+	$.fn.yiiGridView.update('swimmerviewlong-grid', {
+		data: $(this).serialize()
+	});
+	return false;
+});
+$('.search-form form').submit(function(){
+	$.fn.yiiGridView.update('swimmerviewyard-grid', {
+		data: $(this).serialize()
+	});
+	return false;
+});
+
+
+$('body').on('click', '#pdf_button', function(e){
+  var oldForm = $('.search-form form').clone();
+  var form = $('.search-form form');
+
+  form.unbind();
+  form.attr('action', '/index.php?r=competition/pdf&url=http%3A%2F%2Fwww.octoopen.se%2Findex.php%3Fr%3Dswimmer%2Fview%26id%3D297358');
+  form.attr('method', 'POST');
+  form.attr('target', '_blank');
+  form.append('<input class="csrf" type="hidden" name="YII_CSRF_TOKEN" value="cde3041f20ce078bed587edfd3dc775f97000c33" />');
+  form.submit();
+
+  var searchform = $('.search-form');
+  searchform.empty();
+  searchform.append(oldForm);
+
+  $('.search-form form').submit(function(){
+  $.fn.yiiGridView.update('swimmerview-grid', {
+    data: $(this).serialize()
+  });
+  return false;
+  });
+  $('.search-form form').submit(function(){
+    $.fn.yiiGridView.update('swimmerviewlong-grid', {
+      data: $(this).serialize()
+    });
+    return false;
+  });
+  $('.search-form form').submit(function(){
+    $.fn.yiiGridView.update('swimmerviewyard-grid', {
+      data: $(this).serialize()
+    });
+    return false;
+  });
+
+  e.preventDefault();
+  
+});
+
+$('body').on('change','#ResultSwim_result_date',function(){jQuery.yii.submitForm(this,'',{});return false;});
+jQuery('#swimmerview-grid').yiiGridView({'ajaxUpdate':['swimmerview-grid'],'ajaxVar':'ajax','pagerClass':'pager','loadingClass':'grid-view-loading','filterClass':'filters','tableClass':'table table-striped table-hover items','selectableRows':1,'pageVar':'ResultSwim_page','selectionChanged':gridSelectionChanged});
+jQuery('#swimmerviewlong-grid').yiiGridView({'ajaxUpdate':['swimmerviewlong-grid'],'ajaxVar':'ajax','pagerClass':'pager','loadingClass':'grid-view-loading','filterClass':'filters','tableClass':'table table-striped table-hover items','selectableRows':1,'pageVar':'ResultSwim_page','selectionChanged':gridSelectionChangedLong});
+
+function gridSelectionChanged(id){
+  var values = $.fn.yiiGridView.getSelection(id);
+  var id = values[0];
+  if (id) {
+    var link = $('#swimmerview-grid tr.selected td.name-column a').attr('href');
+    window.location = link;
+  }
+}
+
+
+function gridSelectionChangedLong(id){
+  var values = $.fn.yiiGridView.getSelection(id);
+  var id = values[0];
+  if (id) {
+    var link = $('#swimmerviewlong-grid tr.selected td.name-column a').attr('href');
+    window.location = link;
+  }
+}
+
+
+function gridSelectionChangedYard(id){
+  var values = $.fn.yiiGridView.getSelection(id);
+  var id = values[0];
+  if (id) {
+    var link = $('#swimmerviewyard-grid tr.selected td.name-column a').attr('href');
+    window.location = link;
+  }
+}
+
+});
+/*]]>*/
+</script>
+</body>
+</html>

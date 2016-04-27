@@ -3,7 +3,7 @@ package se.skeppstedt.swimmer.dropwizard.api;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonFormat(shape= JsonFormat.Shape.OBJECT)
+@JsonFormat(shape= JsonFormat.Shape.OBJECT) //This makes JSON serialization use the discipline field instead of Enumeration name which is jackson default
 public enum Discipline {
 	BREASTSTROKE("Bröstsim"),
 	BACKSTROKE("Ryggsim"),
