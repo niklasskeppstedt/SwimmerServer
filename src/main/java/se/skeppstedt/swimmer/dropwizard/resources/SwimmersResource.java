@@ -22,6 +22,7 @@ import se.skeppstedt.swimmer.dropwizard.api.PersonalBest;
 import se.skeppstedt.swimmer.dropwizard.api.Swimmer;
 import se.skeppstedt.swimmer.octo.OctoDocumentProvider;
 import se.skeppstedt.swimmer.octo.OctoParser;
+import se.skeppstedt.swimmer.octo.SearchSwimmerProvider;
 
 import com.codahale.metrics.annotation.Timed;
 
@@ -67,9 +68,8 @@ public class SwimmersResource {
 	// Example: POST
 	public Collection<Swimmer> searchSwimmer(Swimmer swimmerSearch) {
 		String[] names = swimmerSearch.getName().split(" ");
-		String searchUrl = OctoDocumentProvider.createSearchUrl(names[0], names[1], swimmerSearch.getClub(), swimmerSearch.getYearOfBirth());
-		OctoParser parser = new OctoParser(new OctoDocumentProvider(searchUrl));
-		return parser.search();
+		OctoParser parser = new OctoParser(new SearchSwimmerProvider(names[0], names[1], swimmerSearch.getClub(), swimmerSearch.getYearOfBirth()));
+		return parser.searchSwimmers();
 	}
 
     @POST
@@ -97,9 +97,9 @@ public class SwimmersResource {
     @Timed
     @Path("/{id}")
     //Example: DELETE http://localhost:9000/swimmers/111
-    public Collection<Swimmer> deleteSwimmer(@PathParam("id") String id) {
-    	swimmerDao.remove(id);
-    	return swimmerDao.values();
+    public Swimmer deleteSwimmer(@PathParam("id") String id) {
+    	Swimmer deleted = swimmerDao.remove(id);
+    	return deleted;
     }
 
 

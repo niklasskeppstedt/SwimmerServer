@@ -3,16 +3,10 @@ package se.skeppstedt.swimmer.octo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.junit.Test;
 
 import se.skeppstedt.swimmer.dropwizard.api.Event;
@@ -43,7 +37,7 @@ public class OctoParserTest {
 
 	@Test
 	public void whenFetchingOnlineEliasSkeppstedtASwimmerWithPersonalBestsIsReturned() throws Exception {
-		OctoParser testee = new OctoParser(new OctoDocumentProvider(OctoDocumentProvider.createDetailsUrl("297358")));
+		OctoParser testee = new OctoParser(new SwimmerDetailsProvider("297358"));
 		Swimmer swimmer = testee.getSwimmerDetails();
 		assertEquals("Elias Skeppstedt", swimmer.getName());
 		assertEquals("Stockholms Kappsimningsklubb", swimmer.getClub());
@@ -65,7 +59,7 @@ public class OctoParserTest {
 	@Test
 	public void whenSearchingEliasSkeppstedtAListWithOneSwimmerIsReturned() {
 		OctoParser testee = new OctoParser(new FileDocumentProvider("searchResult.html"));
-		Set<Swimmer> searchResult = testee.search();
+		Set<Swimmer> searchResult = testee.searchSwimmers();
 		searchResult.forEach(s -> {
 			//Test parsing for one known swimmer
 			if(s.getId().equals("297358"))
@@ -78,8 +72,9 @@ public class OctoParserTest {
 	
 	@Test
 	public void whenSearchingOnlineEliasSkeppstedtAListWithOneSwimmerIsReturned() throws UnsupportedEncodingException {
-		OctoParser testee = new OctoParser(new OctoDocumentProvider(OctoDocumentProvider.createSearchUrl("Elias", "Skeppstedt", "", "") ));
-		Set<Swimmer> searchResult = testee.search();
+		OctoParser testee = new OctoParser(new SearchSwimmerProvider("Elias", "Skeppstedt", "", ""));
+
+		Set<Swimmer> searchResult = testee.searchSwimmers();
 		searchResult.forEach(s -> {
 			//Test parsing for one known swimmer
 			if(s.getId().equals("297358"))

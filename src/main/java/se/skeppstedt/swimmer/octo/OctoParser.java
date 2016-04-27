@@ -1,21 +1,15 @@
 package se.skeppstedt.swimmer.octo;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.FormElement;
@@ -53,7 +47,7 @@ public class OctoParser {
 		return swimmer;
 	}
 
-	public Set<Swimmer> search() {
+	public Set<Swimmer> searchSwimmers() {
 		try {
 			document = documentProvider.getDocument();
 		} catch (IOException e) {

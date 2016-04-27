@@ -15,30 +15,30 @@ import javax.ws.rs.core.MediaType;
 
 import se.skeppstedt.swimmer.dropwizard.api.Event;
 import se.skeppstedt.swimmer.dropwizard.api.PersonalBest;
+import se.skeppstedt.swimmer.dropwizard.api.Swimmer;
+import se.skeppstedt.swimmer.octo.OctoParser;
+import se.skeppstedt.swimmer.octo.SwimmerDetailsProvider;
 
 import com.codahale.metrics.annotation.Timed;
-import se.skeppstedt.swimmer.dropwizard.api.Swimmer;
-import se.skeppstedt.swimmer.octo.OctoDocumentProvider;
-import se.skeppstedt.swimmer.octo.OctoParser;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/personalbests")
 public class PersonalBestResource {
 	private static HashMap<String, List<PersonalBest>> repo = new HashMap<>();
-	static {
-		ArrayList<PersonalBest> personalBests = new ArrayList<>();
-		personalBests.add(new PersonalBest(Event.BACKSTROKE_100,Duration.ofMinutes(0).plusSeconds(32).plusMillis(320), "V�rsimiaden", new Date(), "1234"));
-		personalBests.add(new PersonalBest(Event.FREESTYLE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"V�rsimiaden", new Date(), "1234"));
-		personalBests.add(new PersonalBest(Event.BUTTERFLY_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"V�rsimiaden", new Date(), "1234"));
-		personalBests.add(new PersonalBest(Event.BREASTSTROKE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"V�rsimiaden", new Date(), "1234"));
-		repo.put("1234", personalBests);
-		personalBests = new ArrayList<>();
-		personalBests.add(new PersonalBest(Event.BACKSTROKE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"V�rsimiaden", new Date(), "2345"));
-		personalBests.add(new PersonalBest(Event.FREESTYLE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"V�rsimiaden", new Date(), "2345"));
-		personalBests.add(new PersonalBest(Event.BUTTERFLY_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"V�rsimiaden", new Date(), "2345"));
-		personalBests.add(new PersonalBest(Event.BREASTSTROKE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"V�rsimiaden", new Date(), "2345"));
-		repo.put("2345", personalBests);
-	}
+//	static {
+//		ArrayList<PersonalBest> personalBests = new ArrayList<>();
+//		personalBests.add(new PersonalBest(Event.BACKSTROKE_100,Duration.ofMinutes(0).plusSeconds(32).plusMillis(320), "V�rsimiaden", new Date(), "1234"));
+//		personalBests.add(new PersonalBest(Event.FREESTYLE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"V�rsimiaden", new Date(), "1234"));
+//		personalBests.add(new PersonalBest(Event.BUTTERFLY_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"V�rsimiaden", new Date(), "1234"));
+//		personalBests.add(new PersonalBest(Event.BREASTSTROKE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"V�rsimiaden", new Date(), "1234"));
+//		repo.put("1234", personalBests);
+//		personalBests = new ArrayList<>();
+//		personalBests.add(new PersonalBest(Event.BACKSTROKE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"V�rsimiaden", new Date(), "2345"));
+//		personalBests.add(new PersonalBest(Event.FREESTYLE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"V�rsimiaden", new Date(), "2345"));
+//		personalBests.add(new PersonalBest(Event.BUTTERFLY_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"V�rsimiaden", new Date(), "2345"));
+//		personalBests.add(new PersonalBest(Event.BREASTSTROKE_100, Duration.ofMinutes(0).plusSeconds(32).plusMillis(320),"V�rsimiaden", new Date(), "2345"));
+//		repo.put("2345", personalBests);
+//	}
 
     @GET
     @Timed
@@ -47,7 +47,7 @@ public class PersonalBestResource {
     public List<PersonalBest> getPersonalBestsForSwimmer(@PathParam("swimmerid") String id) {
     	List<PersonalBest> pbs = repo.get(id);
 		if(pbs == null || pbs.isEmpty()) {
-			OctoParser parser = new OctoParser(new OctoDocumentProvider(OctoDocumentProvider.createDetailsUrl(id)));
+			OctoParser parser = new OctoParser(new SwimmerDetailsProvider(id));
 			Swimmer swimmer = parser.getSwimmerDetails();
 			repo.put(swimmer.getId(), swimmer.getPersonalBests());
 			return swimmer.getPersonalBests();
