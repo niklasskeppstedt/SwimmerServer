@@ -1,6 +1,9 @@
 package se.skeppstedt.swimmer.dropwizard.resources;
 
+import io.dropwizard.auth.Auth;
+
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,6 +22,7 @@ import javax.ws.rs.core.MediaType;
 
 import se.skeppstedt.swimmer.dropwizard.api.PersonalBest;
 import se.skeppstedt.swimmer.dropwizard.api.Swimmer;
+import se.skeppstedt.swimmer.dropwizard.api.User;
 import se.skeppstedt.swimmer.octo.OctoParser;
 
 import com.codahale.metrics.annotation.Timed;
@@ -38,7 +42,7 @@ public class SwimmersResource {
     @Timed
     @Path("/{id}")
     //Example: GET http://localhost:9000/swimmers/111
-    public Swimmer getSwimmer(@PathParam("id") String id) {
+    public Swimmer getSwimmer(@Auth User user, @PathParam("id") String id) {
 		Swimmer swimmer = swimmerDao.get(id);
 		PersonalBestResource resource = rc.getResource(PersonalBestResource.class);
 		List<PersonalBest> personalBestsForSwimmer = resource.getPersonalBestsForSwimmer(id);
@@ -58,9 +62,11 @@ public class SwimmersResource {
     @Path("/search")
     @Consumes(MediaType.APPLICATION_JSON)
 	// Example: POST
-	public Collection<Swimmer> searchSwimmer(Swimmer swimmerSearch) {
-		String[] names = swimmerSearch.getName().split(" ");
-		return parser.searchSwimmers(names[0], names[1], swimmerSearch.getClub(), swimmerSearch.getYearOfBirth());
+	public Collection<Swimmer> searchSwimmer(@Auth User user, Swimmer swimmerSearch) {
+		if(swimmerSearch == null) {
+			return Collections.emptyList();
+		}
+		return parser.searchSwimmers(swimmerSearch.getFirstName(), swimmerSearch.getLastName(), swimmerSearch.getClub(), swimmerSearch.getYearOfBirth());
 	}
 
     @POST

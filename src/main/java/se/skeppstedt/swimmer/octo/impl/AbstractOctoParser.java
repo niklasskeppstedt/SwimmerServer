@@ -36,11 +36,13 @@ public abstract class AbstractOctoParser implements OctoParser{
 			System.err.println("Could not get document");
 			return null;
 		}
-		String name = extractSwimmerName();
+		String[] names = extractSwimmerName().split(" ");
+		String firstName = names[0];
+		String lastName = names[1];
 		String yearOfBirth = extractSwimmerYearOfBirth();
 		String swimmingClub = extractSwimmerClub();
 		String octoId = extractOctoId();
-		swimmer = new Swimmer(octoId, name, swimmingClub, yearOfBirth);
+		swimmer = new Swimmer(octoId, firstName, lastName, swimmingClub, yearOfBirth);
 		extractPersonalBests(swimmer);
 		
 		return swimmer;
@@ -63,7 +65,7 @@ public abstract class AbstractOctoParser implements OctoParser{
 			String aYearOfBirth = element.select("td").get(3).ownText();
 			String aClub = element.select("td").get(4).ownText();
 			String octoId = extractLinkParameter(element, "id");
-			boolean added = swimmers.add(new Swimmer(octoId, aFirstName + " " + aLastName, aClub, aYearOfBirth));
+			boolean added = swimmers.add(new Swimmer(octoId, aFirstName , aLastName, aClub, aYearOfBirth));
 			if(!added) {
 				System.err.println("Could not add swimmer, already in set");
 			}

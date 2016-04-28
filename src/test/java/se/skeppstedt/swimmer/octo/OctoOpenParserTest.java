@@ -20,7 +20,7 @@ public class OctoOpenParserTest {
 	public void whenFetchingEliasSkeppstedtASwimmerWithPersonalBestsIsReturned() throws Exception {
 		OctoParser testee = new FileOctoParser("swimmerDetails.html");
 		Swimmer swimmer = testee.getSwimmerDetails("297358");
-		assertEquals("Elias Skeppstedt", swimmer.getName());
+		assertEquals("Elias Skeppstedt", swimmer.getFirstName());
 		assertEquals("Stockholms Kappsimningsklubb", swimmer.getClub());
 		assertEquals("297358", swimmer.getId());
 		assertEquals("2003", swimmer.getYearOfBirth());
@@ -41,7 +41,7 @@ public class OctoOpenParserTest {
 	public void whenFetchingOnlineEliasSkeppstedtASwimmerWithPersonalBestsIsReturned() throws Exception {
 		OctoParser testee = new OctoOpenParserImpl();
 		Swimmer swimmer = testee.getSwimmerDetails("297358");
-		assertEquals("Elias Skeppstedt", swimmer.getName());
+		assertEquals("Elias Skeppstedt", swimmer.getFirstName());
 		assertEquals("Stockholms Kappsimningsklubb", swimmer.getClub());
 		assertEquals("297358", swimmer.getId());
 		assertEquals("2003", swimmer.getYearOfBirth());
@@ -65,7 +65,7 @@ public class OctoOpenParserTest {
 		searchResult.forEach(s -> {
 			//Test parsing for one known swimmer
 			if(s.getId().equals("297358"))
-				assertTrue(s.getName().contains("Elias") && s.getName().contains("Skeppstedt"));
+				assertTrue(s.getFirstName().contains("Elias") && s.getFirstName().contains("Skeppstedt"));
 				assertEquals("Stockholms Kappsimningsklubb", s.getClub());
 				assertEquals("297358", s.getId());
 				assertEquals("2003", s.getYearOfBirth());
@@ -80,7 +80,7 @@ public class OctoOpenParserTest {
 		searchResult.forEach(s -> {
 			//Test parsing for one known swimmer
 			if(s.getId().equals("297358"))
-				assertTrue(s.getName().contains("Elias") && s.getName().contains("Skeppstedt"));
+				assertTrue(s.getFirstName().contains("Elias") && s.getFirstName().contains("Skeppstedt"));
 				assertEquals("Stockholms Kappsimningsklubb", s.getClub());
 				assertEquals("297358", s.getId());
 				assertEquals("2003", s.getYearOfBirth());

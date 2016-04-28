@@ -5,3 +5,4 @@ server:
   adminConnectors:
   - type: http
     port: 7001
+authenticationCachePolicy: maximumSize=10000, expireAfterAccess=10m    

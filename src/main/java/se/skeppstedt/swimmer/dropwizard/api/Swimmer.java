@@ -10,7 +10,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(Include.NON_NULL)
 public class Swimmer {
     private String id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String club;
     private String yearOfBirth;
     private List<PersonalBest> personalBests = new ArrayList<>();
@@ -19,9 +20,10 @@ public class Swimmer {
     	
     }
 
-    public Swimmer(String id, String name, String club, String yearOfBirth) {
+    public Swimmer(String id, String firstName, String lastName, String club, String yearOfBirth) {
     	this.id = id;
-    	this.name = name;
+    	this.firstName = firstName;
+    	this.lastName = lastName;
     	this.club = club;
     	this.yearOfBirth = yearOfBirth;
     }
@@ -32,12 +34,21 @@ public class Swimmer {
     }
 
     @JsonProperty
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+    @JsonProperty
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
     @JsonProperty

@@ -1,6 +1,11 @@
 package se.skeppstedt.swimmer.dropwizard;
 
 import io.dropwizard.Application;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.CachingAuthenticator;
+import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
+import io.dropwizard.auth.basic.BasicCredentials;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
@@ -9,21 +14,30 @@ import java.util.EnumSet;
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
 
+import org.eclipse.jetty.security.authentication.BasicAuthenticator;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
+import se.skeppstedt.swimmer.dropwizard.api.User;
+import se.skeppstedt.swimmer.dropwizard.authentication.SimpleAuthorizer;
+import se.skeppstedt.swimmer.dropwizard.authentication.SimpleAuthenticator;
 import se.skeppstedt.swimmer.dropwizard.resources.PersonalBestResource;
 import se.skeppstedt.swimmer.dropwizard.resources.SwimmersResource;
 import se.skeppstedt.swimmer.dropwizard.resources.UserResource;
 import se.skeppstedt.swimmer.guice.SwimmersModule;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import com.codahale.metrics.MetricRegistry;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 
 public class SwimmersApplication extends Application<SwimmersConfiguration> {
 
-	private GuiceBundle<SwimmersConfiguration> guiceBundle;
+	private static CachingAuthenticator<BasicCredentials, User> cachedAuthenticator;
+	public static CachingAuthenticator<BasicCredentials, User> getCachedAuthenticator() {
+		return cachedAuthenticator;
+	}
 
+
+	private GuiceBundle<SwimmersConfiguration> guiceBundle;
 	
 	public static void main(String[] args) throws Exception {
 		new SwimmersApplication().run(args);
@@ -33,7 +47,7 @@ public class SwimmersApplication extends Application<SwimmersConfiguration> {
 	public String getName() {
 		return "Swimmers";
 	}
-
+	
 	@Override
 	public void initialize(Bootstrap<SwimmersConfiguration> bootstrap) {
 		   guiceBundle = GuiceBundle.<SwimmersConfiguration>newBuilder()
@@ -46,13 +60,28 @@ public class SwimmersApplication extends Application<SwimmersConfiguration> {
 
 	@Override
 	public void run(SwimmersConfiguration configuration, Environment environment) {
-		   // Enable CORS headers
+		//GUICE INJECTOR
+//		Guice.createInjector(new SwimmersModule());
+		SimpleAuthenticator authenticator = guiceBundle.getInjector().getInstance(SimpleAuthenticator.class);
+		cachedAuthenticator = new CachingAuthenticator<BasicCredentials, User>(
+		      new MetricRegistry(), authenticator, configuration.getAuthenticationCachePolicy());
+	    environment.jersey().register(new AuthDynamicFeature(
+	            new BasicCredentialAuthFilter.Builder<User>()
+	                .setAuthenticator(cachedAuthenticator)
+	                .setAuthorizer(new SimpleAuthorizer())
+	                .setRealm("SUPER SECRET STUFF")
+	                .buildAuthFilter()));
+	    environment.jersey().register(RolesAllowedDynamicFeature.class);
+	    //If you want to use @Auth to inject a custom Principal type into your resource
+	    environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
+		
+		// Enable CORS headers
 	    final FilterRegistration.Dynamic cors =
 	        environment.servlets().addFilter("CORS", CrossOriginFilter.class);
 
 	    // Configure CORS parameters
 	    cors.setInitParameter("allowedOrigins", "*");
-	    cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin");
+	    cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin, Authorization");
 	    cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
 
 	    // Add URL mapping
@@ -68,8 +97,6 @@ public class SwimmersApplication extends Application<SwimmersConfiguration> {
 //		final TemplateHealthCheck healthCheck = new TemplateHealthCheck(configuration.getTemplate());
 //		environment.healthChecks().register("template", healthCheck);
 		
-		//GUICE INJECTOR
-		Guice.createInjector(new SwimmersModule());
 		
 	}
 

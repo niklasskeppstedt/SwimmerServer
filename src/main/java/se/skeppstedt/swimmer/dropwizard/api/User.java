@@ -4,11 +4,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.dropwizard.auth.basic.BasicCredentials;
+
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 @JsonInclude(Include.NON_NULL)
-public class User {
+public class User implements Principal {
     private String username;
     private String password;
 
@@ -37,5 +40,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	public String getName() {
+		return getUsername();
+	}
+
+	public BasicCredentials toCredentials() {
+		return new BasicCredentials(username, password);
 	}
 }

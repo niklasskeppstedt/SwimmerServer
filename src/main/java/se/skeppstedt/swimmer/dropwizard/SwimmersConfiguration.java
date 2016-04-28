@@ -1,10 +1,22 @@
 package se.skeppstedt.swimmer.dropwizard;
 
-import io.dropwizard.Configuration;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import io.dropwizard.Configuration;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.cache.CacheBuilderSpec;
+
 public class SwimmersConfiguration extends Configuration {
+	
+	@JsonProperty
+	public CacheBuilderSpec getAuthenticationCachePolicy() {
+		return CacheBuilderSpec.parse(authenticationCachePolicy);
+	}
+	
+	@NotEmpty
+	private String authenticationCachePolicy;
+	
 //    @NotEmpty
 //    private String template;
 //
@@ -31,3 +43,4 @@ public class SwimmersConfiguration extends Configuration {
 //        this.defaultName = name;
 //    }
 }
+
