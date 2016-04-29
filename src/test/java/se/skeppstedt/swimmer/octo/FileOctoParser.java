@@ -10,21 +10,28 @@ import org.jsoup.nodes.Document;
 import se.skeppstedt.swimmer.octo.impl.AbstractOctoParser;
 
 public class FileOctoParser extends AbstractOctoParser {
-	String fileName;
+	String fileName = null;
 
-	public FileOctoParser(String fileName) {
-		this.fileName = fileName;
+	public FileOctoParser() {
 	}
-
+	
 	@Override
 	protected Document getDocument(String swimmerId) throws IOException,
 			MalformedURLException {
+		fileName = "swimmerDetails.html";
 		return getDocument();
+	}
+	
+	public void setEmptySearch() {
+		this.fileName = "emptySearch.html";
 	}
 
 	@Override
 	protected Document getDocument(String firstName, String lastName,
 			String club, String yearOfBirth) throws IOException {
+		if(fileName == null) {
+			fileName = "searchResult.html";
+		}
 		return getDocument();
 	}
 
