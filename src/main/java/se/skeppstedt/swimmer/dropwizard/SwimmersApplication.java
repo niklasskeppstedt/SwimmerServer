@@ -8,6 +8,7 @@ import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.CachingAuthenticator;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.auth.basic.BasicCredentials;
+import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
@@ -17,18 +18,20 @@ import java.util.Map;
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
 
-import org.eclipse.jetty.security.authentication.BasicAuthenticator;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
+import org.skife.jdbi.v2.DBI;
 
 import se.skeppstedt.swimmer.dropwizard.api.User;
 import se.skeppstedt.swimmer.dropwizard.authentication.SimpleAuthorizer;
 import se.skeppstedt.swimmer.dropwizard.authentication.SimpleAuthenticator;
 import se.skeppstedt.swimmer.dropwizard.health.OctoopenHealthCheck;
+import se.skeppstedt.swimmer.dropwizard.authentication.SimpleAuthorizer;
 import se.skeppstedt.swimmer.dropwizard.resources.PersonalBestResource;
 import se.skeppstedt.swimmer.dropwizard.resources.SwimmersResource;
 import se.skeppstedt.swimmer.dropwizard.resources.UserResource;
 import se.skeppstedt.swimmer.guice.SwimmersModule;
+import se.skeppstedt.swimmer.persistence.UserDaoImp;
 
 import com.codahale.metrics.MetricRegistry;
 import com.hubspot.dropwizard.guice.GuiceBundle;
@@ -90,12 +93,23 @@ public class SwimmersApplication extends Application<SwimmersConfiguration> {
 	    // Add URL mapping
 	    cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 	    
+	    //Resources
 		final SwimmersResource resource = new SwimmersResource();
 		environment.jersey().register(resource);
 		final PersonalBestResource pbResource = new PersonalBestResource();
 		environment.jersey().register(pbResource);
-		final UserResource userResource = new UserResource();
-		environment.jersey().register(userResource);
+
+		//DB stuff
+	    final DBIFactory factory = new DBIFactory();
+	    final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "h2");
+	    final UserDaoImp dao = jdbi.onDemand(UserDaoImp.class);
+	    environment.jersey().register(new UserResource(dao));
+	    
+	    dao.createUserTable();
+	    dao.insert("niske", "nik00las");
+	    
+//		final UserResource userResource = new UserResource();
+//		environment.jersey().register(userResource);
 
 		//Add health checks
 		final OctoopenHealthCheck healthCheck = new OctoopenHealthCheck();

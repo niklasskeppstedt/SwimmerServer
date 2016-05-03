@@ -1,6 +1,5 @@
 package se.skeppstedt.swimmer.guice;
 
-//import se.skeppstedt.swimmer.octo.FileOctoParser;
 import se.skeppstedt.swimmer.octo.OctoParser;
 import se.skeppstedt.swimmer.octo.impl.OctoOpenParserImpl;
 import se.skeppstedt.swimmer.persistence.UserDao;

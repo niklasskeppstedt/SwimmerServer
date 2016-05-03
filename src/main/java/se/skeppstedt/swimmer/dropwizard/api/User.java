@@ -1,19 +1,19 @@
 package se.skeppstedt.swimmer.dropwizard.api;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.dropwizard.auth.basic.BasicCredentials;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(Include.NON_NULL)
 public class User implements Principal {
     private String username;
     private String password;
+    private Set<String> savedSwimmerIds;
 
     public User() {
 
@@ -50,4 +50,5 @@ public class User implements Principal {
 	public BasicCredentials toCredentials() {
 		return new BasicCredentials(username, password);
 	}
+	
 }

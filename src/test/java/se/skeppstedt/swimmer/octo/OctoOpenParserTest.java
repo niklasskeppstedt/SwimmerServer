@@ -40,6 +40,31 @@ public class OctoOpenParserTest {
 	}
 
 	@Test
+	public void whenSearchingEliasSkeppstedtAListWithOneSwimmerIsReturned() {
+		OctoParser testee = new FileOctoParser();
+		Set<Swimmer> searchResult = testee.searchSwimmers("Elias", "Skeppstedt", "", "");
+		searchResult.forEach(s -> {
+			//Test parsing for one known swimmer
+			if(s.getId().equals("297358"))
+				assertEquals("Elias", s.getFirstName());
+				assertEquals("Skeppstedt", s.getLastName());
+				assertTrue(s.getFirstName().contains("Elias") && s.getFirstName().contains("Skeppstedt"));
+				assertEquals("Stockholms Kappsimningsklubb", s.getClub());
+				assertEquals("297358", s.getId());
+				assertEquals("2003", s.getYearOfBirth());
+			});
+	}
+
+	@Test
+	public void whenSearchingWithNoHitsAnEmtySetIsReturned() {
+		FileOctoParser testee = new FileOctoParser();
+		testee.setEmptySearch();
+		Set<Swimmer> searchResult = testee.searchSwimmers("Dummy", "Dummyson", "", "");
+		assertTrue(searchResult != null);
+		assertTrue(searchResult.isEmpty());
+	}
+	
+	@Test
 	public void whenFetchingOnlineEliasSkeppstedtASwimmerWithPersonalBestsIsReturned() throws Exception {
 		OctoParser testee = new OctoOpenParserImpl();
 		Swimmer swimmer = testee.getSwimmerDetails("297358");
@@ -61,32 +86,6 @@ public class OctoOpenParserTest {
 			}});
 	}
 
-	@Test
-	@Ignore
-	public void whenSearchingEliasSkeppstedtAListWithOneSwimmerIsReturned() {
-		OctoParser testee = new FileOctoParser();
-		Set<Swimmer> searchResult = testee.searchSwimmers("Elias", "Skeppstedt", "", "");
-		searchResult.forEach(s -> {
-			//Test parsing for one known swimmer
-			if(s.getId().equals("297358"))
-				assertEquals("Elias", s.getFirstName());
-				assertEquals("Skeppstedt", s.getLastName());
-				assertTrue(s.getFirstName().contains("Elias") && s.getFirstName().contains("Skeppstedt"));
-				assertEquals("Stockholms Kappsimningsklubb", s.getClub());
-				assertEquals("297358", s.getId());
-				assertEquals("2003", s.getYearOfBirth());
-			});
-	}
-
-	@Test
-	@Ignore
-	public void whenSearchingWithNoHitsAnEmtySetIsReturned() {
-		OctoParser testee = new FileOctoParser();
-		Set<Swimmer> searchResult = testee.searchSwimmers("Dummy", "Dummyson", "", "");
-		assertTrue(searchResult != null);
-		assertTrue(searchResult.isEmpty());
-	}
-	
 	@Test
 	public void whenSearchingOnlineEliasSkeppstedtAListWithOneSwimmerIsReturned() throws UnsupportedEncodingException {
 		OctoParser testee = new OctoOpenParserImpl();

@@ -5,6 +5,7 @@ import com.google.common.base.Optional;
 
 import se.skeppstedt.swimmer.dropwizard.SwimmersApplication;
 import se.skeppstedt.swimmer.dropwizard.api.User;
+import se.skeppstedt.swimmer.persistence.UserDaoImp;
 import io.dropwizard.auth.AuthenticationException;
 
 import javax.ws.rs.*;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 @Path("/users")
 public class UserResource {
 	@Context private ResourceContext rc;
+	private UserDaoImp myDao;
 	
 	private static HashMap<String, User> userDao = new HashMap<>();
 	static {
@@ -28,7 +30,11 @@ public class UserResource {
 		userDao.put(user2.getUsername(), user2);
 	}
 
-    @GET
+    public UserResource(UserDaoImp dao) {
+		myDao = dao;
+	}
+
+	@GET
     @Timed
     @Path("/{username}")
     //Example: GET http://localhost:9000/users/111

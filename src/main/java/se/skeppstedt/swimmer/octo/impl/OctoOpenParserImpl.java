@@ -10,8 +10,8 @@ import org.jsoup.nodes.Document;
 
 public class OctoOpenParserImpl extends AbstractOctoParser {
 
-	public static String swimmerSearchUrlTemplate = "http://www.octoopen.se/index.php?r=swimmer/index&Swimmer[first_name]=afirstname&Swimmer[last_name]=alastname";
-	public static String swimmerDetailsUrl = "http://www.octoopen.se/index.php?r=swimmer/view&id=";
+	public static String swimmerSearchUrlTemplate = "http://www.octoopen.eu/index.php?r=swimmer/index&Swimmer[first_name]=afirstname&Swimmer[last_name]=alastname";
+	public static String swimmerDetailsUrl = "http://www.octoopen.eu/index.php?r=swimmer/view&id=";
 
 	public OctoOpenParserImpl() {
 	}
