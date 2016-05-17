@@ -1,5 +1,7 @@
 package se.skeppstedt.swimmer.dropwizard;
 
+import com.codahale.metrics.health.HealthCheck;
+import com.google.common.collect.Multiset;
 import io.dropwizard.Application;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
@@ -11,6 +13,7 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
 import java.util.EnumSet;
+import java.util.Map;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
@@ -20,7 +23,9 @@ import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.skife.jdbi.v2.DBI;
 
 import se.skeppstedt.swimmer.dropwizard.api.User;
+import se.skeppstedt.swimmer.dropwizard.authentication.SimpleAuthorizer;
 import se.skeppstedt.swimmer.dropwizard.authentication.SimpleAuthenticator;
+import se.skeppstedt.swimmer.dropwizard.health.OctoopenHealthCheck;
 import se.skeppstedt.swimmer.dropwizard.authentication.SimpleAuthorizer;
 import se.skeppstedt.swimmer.dropwizard.resources.PersonalBestResource;
 import se.skeppstedt.swimmer.dropwizard.resources.SwimmersResource;
@@ -80,7 +85,6 @@ public class SwimmersApplication extends Application<SwimmersConfiguration> {
 		// Enable CORS headers
 	    final FilterRegistration.Dynamic cors =
 	        environment.servlets().addFilter("CORS", CrossOriginFilter.class);
-
 	    // Configure CORS parameters
 	    cors.setInitParameter("allowedOrigins", "*");
 	    cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin, Authorization");
@@ -107,9 +111,18 @@ public class SwimmersApplication extends Application<SwimmersConfiguration> {
 		final UserResource userResource = new UserResource();
 		environment.jersey().register(userResource);
 
-//		final TemplateHealthCheck healthCheck = new TemplateHealthCheck(configuration.getTemplate());
-//		environment.healthChecks().register("template", healthCheck);
-		
+		//Add health checks
+		final OctoopenHealthCheck healthCheck = new OctoopenHealthCheck();
+		environment.healthChecks().register("Octoopen", healthCheck);
+
+		//Run healtchecks
+		for (Map.Entry<String, HealthCheck.Result> entry : environment.healthChecks().runHealthChecks().entrySet()) {
+			if (entry.getValue().isHealthy()) {
+				System.out.println(entry.getKey() + ": OK");
+			} else {
+				System.out.println(entry.getKey() + ": FAIL");
+			}
+		}
 		
 	}
 
