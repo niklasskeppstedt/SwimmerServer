@@ -33,6 +33,9 @@ public class UserResource {
     public UserResource(UserDaoImp dao) {
 		myDao = dao;
 	}
+    
+    public UserResource() {
+	}
 
 	@GET
     @Timed
@@ -56,6 +59,7 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
 	// Example: POST
 	public User login(User inUser) {
+		myDao.findNameById(inUser.getUsername());
 //		User user = userDao.get(inUser.getUsername());
 //		
 //		if(user.getPassword().equals(inUser.getPassword())){

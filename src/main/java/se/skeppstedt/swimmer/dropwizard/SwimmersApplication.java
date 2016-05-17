@@ -96,16 +96,16 @@ public class SwimmersApplication extends Application<SwimmersConfiguration> {
 		environment.jersey().register(pbResource);
 
 		//DB stuff
-	    final DBIFactory factory = new DBIFactory();
-	    final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "h2");
-	    final UserDaoImp dao = jdbi.onDemand(UserDaoImp.class);
-	    environment.jersey().register(new UserResource(dao));
+//	    final DBIFactory factory = new DBIFactory();
+//	    final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "h2");
+//	    final UserDaoImp dao = jdbi.onDemand(UserDaoImp.class);
+//	    environment.jersey().register(new UserResource(dao));
+//	    
+//	    dao.createUserTable();
+//	    dao.insert("niske", "nik00las");
 	    
-	    dao.createUserTable();
-	    dao.insert("niske", "nik00las");
-	    
-//		final UserResource userResource = new UserResource();
-//		environment.jersey().register(userResource);
+		final UserResource userResource = new UserResource();
+		environment.jersey().register(userResource);
 
 //		final TemplateHealthCheck healthCheck = new TemplateHealthCheck(configuration.getTemplate());
 //		environment.healthChecks().register("template", healthCheck);
