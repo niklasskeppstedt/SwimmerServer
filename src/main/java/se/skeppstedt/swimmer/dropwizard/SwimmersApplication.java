@@ -27,6 +27,7 @@ import se.skeppstedt.swimmer.dropwizard.authentication.SimpleAuthorizer;
 import se.skeppstedt.swimmer.dropwizard.authentication.SimpleAuthenticator;
 import se.skeppstedt.swimmer.dropwizard.health.OctoopenHealthCheck;
 import se.skeppstedt.swimmer.dropwizard.authentication.SimpleAuthorizer;
+import se.skeppstedt.swimmer.dropwizard.resources.CompetitionResource;
 import se.skeppstedt.swimmer.dropwizard.resources.PersonalBestResource;
 import se.skeppstedt.swimmer.dropwizard.resources.SwimmersResource;
 import se.skeppstedt.swimmer.dropwizard.resources.UserResource;
@@ -98,6 +99,8 @@ public class SwimmersApplication extends Application<SwimmersConfiguration> {
 		environment.jersey().register(resource);
 		final PersonalBestResource pbResource = new PersonalBestResource();
 		environment.jersey().register(pbResource);
+		final CompetitionResource competitionResource = new CompetitionResource();
+		environment.jersey().register(competitionResource);
 
 		//DB stuff
 //	    final DBIFactory factory = new DBIFactory();

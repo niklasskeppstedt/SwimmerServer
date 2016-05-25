@@ -47,10 +47,14 @@ public class UserResource {
     }
 
     @GET
-    @Timed
-    //Example: GET http://localhost:9000/users
-    public Collection<User> getSwimmers() {
-    	return userDao.values();
+    @Path("/{username}/swimmers")
+    //Example: DELETE http://localhost:9000/users/niske
+    public User getSwimmers(@PathParam("username") String username) {
+		User user = userDao.get(username);
+		if(user != null) {
+			userDao.remove(username);
+		}
+    	return user;
     }
 
 	@POST
@@ -59,7 +63,7 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
 	// Example: POST
 	public User login(User inUser) {
-		myDao.findNameById(inUser.getUsername());
+//		myDao.findNameById(inUser.getUsername());
 //		User user = userDao.get(inUser.getUsername());
 //		
 //		if(user.getPassword().equals(inUser.getPassword())){
