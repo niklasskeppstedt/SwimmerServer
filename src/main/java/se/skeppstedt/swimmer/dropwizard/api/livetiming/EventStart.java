@@ -1,4 +1,4 @@
-package se.skeppstedt.swimmer.dropwizard.api;
+package se.skeppstedt.swimmer.dropwizard.api.livetiming;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

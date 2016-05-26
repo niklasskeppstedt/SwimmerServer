@@ -2,7 +2,7 @@ package se.skeppstedt.swimmer.octo;
 
 import java.util.Set;
 
-import se.skeppstedt.swimmer.dropwizard.api.Swimmer;
+import se.skeppstedt.swimmer.dropwizard.api.octo.Swimmer;
 
 public interface OctoParser {
 	

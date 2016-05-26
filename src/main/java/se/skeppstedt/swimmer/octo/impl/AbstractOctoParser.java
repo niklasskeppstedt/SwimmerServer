@@ -16,9 +16,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.FormElement;
 import org.jsoup.select.Elements;
 
-import se.skeppstedt.swimmer.dropwizard.api.Event;
-import se.skeppstedt.swimmer.dropwizard.api.PersonalBest;
-import se.skeppstedt.swimmer.dropwizard.api.Swimmer;
+import se.skeppstedt.swimmer.dropwizard.api.octo.Event;
+import se.skeppstedt.swimmer.dropwizard.api.octo.PersonalBest;
+import se.skeppstedt.swimmer.dropwizard.api.octo.Swimmer;
 import se.skeppstedt.swimmer.octo.OctoParser;
 
 public abstract class AbstractOctoParser implements OctoParser{

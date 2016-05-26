@@ -2,8 +2,8 @@ package se.skeppstedt.swimmer.octo;
 
 import java.util.Set;
 
-import se.skeppstedt.swimmer.dropwizard.api.Competition;
-import se.skeppstedt.swimmer.dropwizard.api.EventStart;
+import se.skeppstedt.swimmer.dropwizard.api.livetiming.Competition;
+import se.skeppstedt.swimmer.dropwizard.api.livetiming.EventStart;
 
 public interface LiveTimingParser {
 	

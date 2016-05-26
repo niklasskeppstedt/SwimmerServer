@@ -1,4 +1,4 @@
-package se.skeppstedt.swimmer.dropwizard.api;
+package se.skeppstedt.swimmer.dropwizard.api.livetiming;
 
 import java.util.Set;
 import java.util.TreeSet;

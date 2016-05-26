@@ -20,10 +20,10 @@ import javax.ws.rs.core.MediaType;
 
 import com.codahale.metrics.annotation.Timed;
 
-import se.skeppstedt.swimmer.dropwizard.api.Competition;
-import se.skeppstedt.swimmer.dropwizard.api.EventStart;
-import se.skeppstedt.swimmer.dropwizard.api.ProgramEvent;
-import se.skeppstedt.swimmer.dropwizard.api.Session;
+import se.skeppstedt.swimmer.dropwizard.api.livetiming.Competition;
+import se.skeppstedt.swimmer.dropwizard.api.livetiming.EventStart;
+import se.skeppstedt.swimmer.dropwizard.api.livetiming.ProgramEvent;
+import se.skeppstedt.swimmer.dropwizard.api.livetiming.Session;
 import se.skeppstedt.swimmer.octo.LiveTimingParser;
 
 @Produces(MediaType.APPLICATION_JSON)

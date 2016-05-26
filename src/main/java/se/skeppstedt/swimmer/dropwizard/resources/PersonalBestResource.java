@@ -12,8 +12,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import se.skeppstedt.swimmer.dropwizard.api.PersonalBest;
-import se.skeppstedt.swimmer.dropwizard.api.Swimmer;
+import se.skeppstedt.swimmer.dropwizard.api.octo.PersonalBest;
+import se.skeppstedt.swimmer.dropwizard.api.octo.Swimmer;
 import se.skeppstedt.swimmer.octo.OctoParser;
 
 import com.codahale.metrics.annotation.Timed;

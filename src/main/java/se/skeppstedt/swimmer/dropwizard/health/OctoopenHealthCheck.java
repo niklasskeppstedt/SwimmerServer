@@ -1,7 +1,8 @@
 package se.skeppstedt.swimmer.dropwizard.health;
 
 import com.codahale.metrics.health.HealthCheck;
-import se.skeppstedt.swimmer.dropwizard.api.Swimmer;
+
+import se.skeppstedt.swimmer.dropwizard.api.octo.Swimmer;
 import se.skeppstedt.swimmer.octo.impl.OctoOpenParserImpl;
 
 public class OctoopenHealthCheck extends HealthCheck {

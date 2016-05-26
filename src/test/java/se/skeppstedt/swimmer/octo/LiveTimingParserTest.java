@@ -7,8 +7,8 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import se.skeppstedt.swimmer.dropwizard.api.EventStart;
-import se.skeppstedt.swimmer.dropwizard.api.Swimmer;
+import se.skeppstedt.swimmer.dropwizard.api.livetiming.EventStart;
+import se.skeppstedt.swimmer.dropwizard.api.octo.Swimmer;
 import se.skeppstedt.swimmer.octo.impl.LiveTimingParserImpl;
 import se.skeppstedt.swimmer.octo.impl.OctoOpenParserImpl;
 

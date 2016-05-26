@@ -1,4 +1,4 @@
-package se.skeppstedt.swimmer.dropwizard.api;
+package se.skeppstedt.swimmer.dropwizard.api.octo;
 
 import java.util.ArrayList;
 import java.util.List;

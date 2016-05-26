@@ -8,9 +8,9 @@ import java.util.Set;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import se.skeppstedt.swimmer.dropwizard.api.Competition;
-import se.skeppstedt.swimmer.dropwizard.api.EventStart;
-import se.skeppstedt.swimmer.dropwizard.api.ProgramEvent;
+import se.skeppstedt.swimmer.dropwizard.api.livetiming.Competition;
+import se.skeppstedt.swimmer.dropwizard.api.livetiming.EventStart;
+import se.skeppstedt.swimmer.dropwizard.api.livetiming.ProgramEvent;
 
 public class LiveTimingParserImpl extends AbstractLiveTimingParser {
 

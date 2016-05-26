@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-import se.skeppstedt.swimmer.dropwizard.api.Event;
-import se.skeppstedt.swimmer.dropwizard.api.PersonalBest;
-import se.skeppstedt.swimmer.dropwizard.api.Swimmer;
+import se.skeppstedt.swimmer.dropwizard.api.octo.Event;
+import se.skeppstedt.swimmer.dropwizard.api.octo.PersonalBest;
+import se.skeppstedt.swimmer.dropwizard.api.octo.Swimmer;
 import se.skeppstedt.swimmer.octo.impl.OctoOpenParserImpl;
 
 public class OctoOpenParserTest {

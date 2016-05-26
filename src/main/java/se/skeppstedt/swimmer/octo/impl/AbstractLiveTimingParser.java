@@ -19,13 +19,13 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.FormElement;
 import org.jsoup.select.Elements;
 
-import se.skeppstedt.swimmer.dropwizard.api.Competition;
-import se.skeppstedt.swimmer.dropwizard.api.Event;
-import se.skeppstedt.swimmer.dropwizard.api.EventStart;
-import se.skeppstedt.swimmer.dropwizard.api.PersonalBest;
-import se.skeppstedt.swimmer.dropwizard.api.ProgramEvent;
-import se.skeppstedt.swimmer.dropwizard.api.Session;
-import se.skeppstedt.swimmer.dropwizard.api.Swimmer;
+import se.skeppstedt.swimmer.dropwizard.api.livetiming.Competition;
+import se.skeppstedt.swimmer.dropwizard.api.livetiming.EventStart;
+import se.skeppstedt.swimmer.dropwizard.api.livetiming.ProgramEvent;
+import se.skeppstedt.swimmer.dropwizard.api.livetiming.Session;
+import se.skeppstedt.swimmer.dropwizard.api.octo.Event;
+import se.skeppstedt.swimmer.dropwizard.api.octo.PersonalBest;
+import se.skeppstedt.swimmer.dropwizard.api.octo.Swimmer;
 import se.skeppstedt.swimmer.octo.LiveTimingParser;
 
 public abstract class AbstractLiveTimingParser implements LiveTimingParser {

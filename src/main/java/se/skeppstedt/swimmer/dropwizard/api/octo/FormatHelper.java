@@ -1,4 +1,4 @@
-package se.skeppstedt.swimmer.dropwizard.api;
+package se.skeppstedt.swimmer.dropwizard.api.octo;
 
 import java.time.Duration;
 import java.time.LocalTime;
