@@ -1,7 +1,7 @@
 package se.skeppstedt.swimmer.dropwizard.api;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -9,15 +9,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(Include.NON_NULL)
 public class Competition {
-    private String id;
+    private int id;
     private String name;
-    private Set<Session> sessions = new HashSet<>();
+    private Set<Session> sessions = new TreeSet<>();
     
-    public Competition() {
-    	
-    }
-    
-    public Competition(String id, String name) {
+    public Competition(int id, String name) {
     	this.id = id;
     	this.name = name;
     }
@@ -27,7 +23,7 @@ public class Competition {
     }
 
     @JsonProperty
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -48,6 +44,15 @@ public class Competition {
 
 	public Set<Session> getSessions() {
 		return sessions;
+	}
+	
+	public Set<ProgramEvent> getEvents() {
+		Set<ProgramEvent> allEvents = new TreeSet<>();
+		Set<Session> sessions = getSessions();
+		for (Session session : sessions) {
+			allEvents.addAll(session.getEvents());
+		}
+		return allEvents;
 	}
 	
 	

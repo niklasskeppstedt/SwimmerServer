@@ -9,6 +9,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import se.skeppstedt.swimmer.dropwizard.api.Competition;
+import se.skeppstedt.swimmer.dropwizard.api.EventStart;
+import se.skeppstedt.swimmer.dropwizard.api.ProgramEvent;
 
 public class LiveTimingParserImpl extends AbstractLiveTimingParser {
 
@@ -21,19 +23,24 @@ public class LiveTimingParserImpl extends AbstractLiveTimingParser {
 	public LiveTimingParserImpl() {
 	}
 
-	protected Document getSessionDocument(String competitionId, int session) throws IOException,
+	protected Document getSessionDocument(int competitionId, int session) throws IOException,
 	MalformedURLException {
 		return Jsoup.parse(new URL(competitionProgramUrl + competitionId + "&session=" + session), 3000);
 	}
 
-	protected Document getCompetitionResultsDocument(String competitionId) throws IOException,
+	protected Document getCompetitionResultsDocument(int competitionId) throws IOException,
 	MalformedURLException {
 		return Jsoup.parse(new URL(competitionResultsUrl + competitionId), 3000);
 	}
 
-	protected Document getCompetitionEventsDocument(String competitionId) throws IOException,
+	protected Document getCompetitionEventsDocument(int competitionId) throws IOException,
 	MalformedURLException {
 		return Jsoup.parse(new URL(competitionEventsUrl + competitionId), 3000);
+	}
+
+	protected Document getStartListDocument(int competitionId, int eventId) throws IOException,
+	MalformedURLException {
+		return Jsoup.parse(new URL(competitionProgramUrl + competitionId + "&type=STS&event=" + eventId), 3000);
 	}
 
 	protected Document getRootDocument() throws IOException,
@@ -44,6 +51,8 @@ public class LiveTimingParserImpl extends AbstractLiveTimingParser {
 	public static void main(String[] args) {
 		LiveTimingParserImpl parser = new LiveTimingParserImpl();
 		Set<Competition> competitions = parser.getCompetitions();
-		Competition loadedCompetition = parser.loadCompetition(competitions.stream().filter(competition -> competition.getId().equals("2703")).findFirst().get());
+		Competition loadedCompetition = parser.getCompetition(2703);
+		Set<EventStart> startList = parser.getStartList(loadedCompetition.getId(), loadedCompetition.getEvents().stream().filter(event -> event.getEventId() == 1).findFirst().get().getEventId());
+		System.out.println(startList);
 	}
 }

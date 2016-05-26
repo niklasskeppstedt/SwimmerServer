@@ -2,18 +2,19 @@ package se.skeppstedt.swimmer.octo;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import se.skeppstedt.swimmer.dropwizard.api.Event;
 import se.skeppstedt.swimmer.dropwizard.api.PersonalBest;
 import se.skeppstedt.swimmer.dropwizard.api.Swimmer;
-import se.skeppstedt.swimmer.octo.OctoParser;
 import se.skeppstedt.swimmer.octo.impl.OctoOpenParserImpl;
 
 public class OctoOpenParserTest {
@@ -42,7 +43,7 @@ public class OctoOpenParserTest {
 	@Test
 	public void whenSearchingEliasSkeppstedtAListWithOneSwimmerIsReturned() {
 		OctoParser testee = new FileOctoParser();
-		Set<Swimmer> searchResult = testee.searchSwimmers("Elias", "Skeppstedt", "", "");
+		Set<Swimmer> searchResult = testee.searchSwimmers("Elias", "Skeppstedt", "", "", "AG3903");
 		searchResult.forEach(s -> {
 			//Test parsing for one known swimmer
 			if(s.getId().equals("297358"))
@@ -59,7 +60,7 @@ public class OctoOpenParserTest {
 	public void whenSearchingWithNoHitsAnEmtySetIsReturned() {
 		FileOctoParser testee = new FileOctoParser();
 		testee.setEmptySearch();
-		Set<Swimmer> searchResult = testee.searchSwimmers("Dummy", "Dummyson", "", "");
+		Set<Swimmer> searchResult = testee.searchSwimmers("Dummy", "Dummyson", "", "", "");
 		assertTrue(searchResult != null);
 		assertTrue(searchResult.isEmpty());
 	}
@@ -90,16 +91,35 @@ public class OctoOpenParserTest {
 	public void whenSearchingOnlineEliasSkeppstedtAListWithOneSwimmerIsReturned() throws UnsupportedEncodingException {
 		OctoParser testee = new OctoOpenParserImpl();
 
-		Set<Swimmer> searchResult = testee.searchSwimmers("Elias", "Skeppstedt", "", "");
+		Set<Swimmer> searchResult = testee.searchSwimmers("Elias", "Skeppstedt", "", "", "AG3903");
+		if(searchResult.isEmpty()) {
+			fail("Nothing found");
+		}
 		searchResult.forEach(s -> {
-			//Test parsing for one known swimmer
-			if(s.getId().equals("297358"))
-				assertEquals("Elias", s.getFirstName());
-				assertEquals("Skeppstedt", s.getLastName());
-				assertEquals("Stockholms Kappsimningsklubb", s.getClub());
-				assertEquals("297358", s.getId());
-				assertEquals("2003", s.getYearOfBirth());
-			});
+			assertEquals("Elias", s.getFirstName());
+			assertEquals("Skeppstedt", s.getLastName());
+			assertEquals("Stockholms Kappsimningsklubb", s.getClub());
+			assertEquals("297358", s.getId());
+			assertEquals("2003", s.getYearOfBirth());
+		});
+	}
+
+	@Test
+	public void whenSearchingOnlineForNonUniqePersonWithLicenceAListWithOneSwimmerIsReturned() throws UnsupportedEncodingException {
+		OctoParser testee = new OctoOpenParserImpl();
+
+		Set<Swimmer> searchResult = testee.searchSwimmers("Elias", "Sk", "", "", "AG3903");
+		if(searchResult.isEmpty()) {
+			fail("Nothing found");
+		}
+		searchResult.forEach(s -> {
+			// Test parsing for one known swimmer
+			assertEquals("Elias", s.getFirstName());
+			assertEquals("Skeppstedt", s.getLastName());
+			assertEquals("Stockholms Kappsimningsklubb", s.getClub());
+			assertEquals("297358", s.getId());
+			assertEquals("2003", s.getYearOfBirth());
+		});
 	}
 
 }

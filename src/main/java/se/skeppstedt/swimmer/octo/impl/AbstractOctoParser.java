@@ -42,14 +42,20 @@ public abstract class AbstractOctoParser implements OctoParser{
 		String yearOfBirth = extractSwimmerYearOfBirth();
 		String swimmingClub = extractSwimmerClub();
 		String octoId = extractOctoId();
-		swimmer = new Swimmer(octoId, firstName, lastName, swimmingClub, yearOfBirth);
+		String licence = extractLicence();
+		swimmer = new Swimmer(octoId, firstName, lastName, swimmingClub, yearOfBirth, licence);
 		extractPersonalBests(swimmer);
 		
 		return swimmer;
 	}
 
+	private String extractLicence() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	@Override
-	public Set<Swimmer> searchSwimmers(String firstName, String lastName, String club, String yearOfBirth) {
+	public Set<Swimmer> searchSwimmers(String firstName, String lastName, String club, String yearOfBirth, String licence) {
 		try {
 			document = getDocument(firstName, lastName, club, yearOfBirth);
 		} catch (IOException e) {
@@ -65,9 +71,12 @@ public abstract class AbstractOctoParser implements OctoParser{
 			String aYearOfBirth = element.select("td").get(3).ownText();
 			String aClub = element.select("td").get(4).ownText();
 			String octoId = extractLinkParameter(element, "id");
-			boolean added = swimmers.add(new Swimmer(octoId, aFirstName , aLastName, aClub, aYearOfBirth));
-			if(!added) {
-				System.err.println("Could not add swimmer, already in set");
+			String aLicence= element.select("td.mobile-hide").first().ownText().trim();
+			if(licence.trim().isEmpty() || licence.trim().equals(aLicence)) {
+				boolean added = swimmers.add(new Swimmer(octoId, aFirstName , aLastName, aClub, aYearOfBirth, aLicence));
+				if(!added) {
+					System.err.println("Could not add swimmer, already in set");
+				}
 			}
 		}
 		return swimmers;

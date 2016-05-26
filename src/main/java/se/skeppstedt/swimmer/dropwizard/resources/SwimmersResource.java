@@ -66,7 +66,7 @@ public class SwimmersResource {
 		if(swimmerSearch == null) {
 			return Collections.emptyList();
 		}
-		return parser.searchSwimmers(swimmerSearch.getFirstName(), swimmerSearch.getLastName(), swimmerSearch.getClub(), swimmerSearch.getYearOfBirth());
+		return parser.searchSwimmers(swimmerSearch.getFirstName(), swimmerSearch.getLastName(), swimmerSearch.getClub(), swimmerSearch.getYearOfBirth(), swimmerSearch.getLicence());
 	}
 
     @POST

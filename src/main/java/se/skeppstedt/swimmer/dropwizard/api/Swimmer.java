@@ -14,18 +14,20 @@ public class Swimmer {
     private String lastName;
     private String club;
     private String yearOfBirth;
+    private String licence;
     private List<PersonalBest> personalBests = new ArrayList<>();
     
     public Swimmer() {
     	
     }
 
-    public Swimmer(String id, String firstName, String lastName, String club, String yearOfBirth) {
+    public Swimmer(String id, String firstName, String lastName, String club, String yearOfBirth, String licence) {
     	this.id = id;
     	this.firstName = firstName;
     	this.lastName = lastName;
     	this.club = club;
     	this.yearOfBirth = yearOfBirth;
+    	this.licence = licence;
     }
 
     @JsonProperty
@@ -80,5 +82,14 @@ public class Swimmer {
 	
 	public void setPersonalBests(List<PersonalBest> personalBests) {
 		this.personalBests = personalBests;
+	}
+	
+	@JsonProperty
+	public String getLicence() {
+		return licence;
+	}
+	
+	public void setLicence(String licence) {
+		this.licence = licence;
 	}
 }

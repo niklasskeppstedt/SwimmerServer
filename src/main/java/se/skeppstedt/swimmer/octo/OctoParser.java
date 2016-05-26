@@ -8,6 +8,6 @@ public interface OctoParser {
 	
 	Swimmer getSwimmerDetails(String swimmerId);
 	
-	public Set<Swimmer> searchSwimmers(String firstName, String lastName, String club, String yearOfBirth);
+	public Set<Swimmer> searchSwimmers(String firstName, String lastName, String club, String yearOfBirth, String license);
 
 }

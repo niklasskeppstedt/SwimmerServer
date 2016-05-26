@@ -1,15 +1,9 @@
 package se.skeppstedt.swimmer.dropwizard.resources;
 
-import java.util.ArrayList;
-//import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 //import java.util.Iterator;
 //import java.util.List;
 import java.util.Set;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
+import java.util.TreeSet;
 
 import javax.inject.Inject;
 //import javax.ws.rs.Consumes;
@@ -27,6 +21,7 @@ import javax.ws.rs.core.MediaType;
 import com.codahale.metrics.annotation.Timed;
 
 import se.skeppstedt.swimmer.dropwizard.api.Competition;
+import se.skeppstedt.swimmer.dropwizard.api.EventStart;
 import se.skeppstedt.swimmer.dropwizard.api.ProgramEvent;
 import se.skeppstedt.swimmer.dropwizard.api.Session;
 import se.skeppstedt.swimmer.octo.LiveTimingParser;
@@ -39,30 +34,22 @@ public class CompetitionResource {
 	
 	@Inject
 	private LiveTimingParser parser;
-	
-	//private static HashMap<String, Competition> competitionDao = new HashMap<>();
 
     @GET
     @Timed
-    @Path("/{id}")
-    //Example: GET http://localhost:9000/swimmers/111
-    public Competition getCompetition(@PathParam("id") String id) {
-		return getCompetitionFromId(id);
+    @Path("/{competitionId}")
+    //Example: GET http://localhost:9000/competitions/111
+    public Competition getCompetition(@PathParam("competitionId") int competitionId) {
+		return parser.getCompetition(competitionId);
     }
 
-    //Helper method
-	private Competition getCompetitionFromId(String competitionId) {
-		return getCompetitions().stream().filter(comp -> comp.getId().equals(competitionId)).findFirst().orElse(null);
-	}
-
     @GET
     @Timed
-    @Path("/{id}/sessions")
+    @Path("/{competitionId}/sessions")
     //Example: GET http://localhost:9000/swimmers/111
-    public Set<Session> getSessions(@PathParam("id") String id) {
-		Competition competition = getCompetitionFromId(id);
-		Competition competitionWithSessions = parser.loadCompetition(competition);
-		for (Session session : competitionWithSessions.getSessions()) {
+    public Set<Session> getSessions(@PathParam("competitionId") int competitionId) {
+		Competition competition = parser.getCompetition(competitionId);
+		for (Session session : competition.getSessions()) {
 			competition.addSession(session);
 		}
 		return competition.getSessions();
@@ -70,26 +57,49 @@ public class CompetitionResource {
 
     @GET
     @Timed
-    @Path("/{id}/sessions/{sessionId}")
+    @Path("/{competitionId}/sessions/{sessionId}")
     //Example: GET http://localhost:9000/competitions/2703/sessions/1
-    public Session getSession(@PathParam("id") String id, @PathParam("sessionId") int sessionId) {
-		Competition competition = getCompetitionFromId(id);
-		parser.loadCompetition(competition);
+    public Session getSession(@PathParam("competitionId") int competitionId, @PathParam("sessionId") int sessionId) {
+		Competition competition = parser.getCompetition(competitionId);
 		return competition.getSessions().stream().filter(session -> session.getSessionId() == sessionId).findFirst().get();
     }
 
     @GET
     @Timed
-    @Path("/{id}/events/")
+    @Path("/{competitionId}/events")
     //Example: GET http://localhost:9000/competitions/2703/sessions/1
-    public Set<ProgramEvent> getEvents(@PathParam("id") String id) {
-		Competition competition = getCompetitionFromId(id);
-		parser.loadCompetition(competition);
-		Set<ProgramEvent> events = new HashSet<>();
+    public Set<ProgramEvent> getEvents(@PathParam("competitionId") int competitionId) {
+		Competition competition = parser.getCompetition(competitionId);
+		Set<ProgramEvent> events = new TreeSet<>();
 		for (Session session : competition.getSessions()) {
-			events.addAll(session.getSessionEvents());
+			events.addAll(session.getEvents());
 		}
 		return events;
+    }
+
+    @GET
+    @Timed
+    @Path("/{competitionId}/events/{eventId}")
+    //Example: GET http://localhost:9000/competitions/2703/events/1
+    public ProgramEvent getEvent(@PathParam("competitionId") int competitionId, @PathParam("eventId") int eventId) {
+    	ProgramEvent programEvent = getEvents(competitionId).stream().filter(event -> event.getEventId() == eventId).findFirst().orElse(null);
+    	if(programEvent == null) {
+    		return null;
+    	}
+    	programEvent.setStartList(parser.getStartList(competitionId, eventId));
+    	return programEvent;
+    }
+
+    @GET
+    @Timed
+    @Path("/{competitionId}/events/{eventId}/{startIndex}")
+    //Example: GET http://localhost:9000/competitions/2703/events/1
+    public EventStart getEventStart(@PathParam("competitionId") int competitionId, @PathParam("eventId") int eventId, @PathParam("startIndex") int startIndex) {
+    	EventStart eventStart = getEvent(competitionId, eventId).getStartList().stream().filter(start -> start.getStartIndex() == startIndex).findFirst().orElse(null);
+    	if(eventStart == null) {
+    		return null;
+    	}
+    	return eventStart;
     }
 
     @GET
@@ -99,47 +109,4 @@ public class CompetitionResource {
     	return parser.getCompetitions();
     }
 
-//	@POST
-//	@Timed
-//    @Path("/search")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//	// Example: POST
-//	public Collection<Swimmer> searchSwimmer(@Auth User user, Swimmer swimmerSearch) {
-//		if(swimmerSearch == null) {
-//			return Collections.emptyList();
-//		}
-//		return parser.searchSwimmers(swimmerSearch.getFirstName(), swimmerSearch.getLastName(), swimmerSearch.getClub(), swimmerSearch.getYearOfBirth());
-//	}
-//
-//    @POST
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Timed
-//    public Swimmer saveSwimmer(Swimmer swimmer) {
-//    	String id = swimmer.getId();
-//    	competitionDao.put(id, swimmer);
-//        return swimmer;
-//    }
-//
-//    @PUT
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Timed
-//    public Swimmer updateSwimmer(Swimmer swimmer) {
-//    	String id = swimmer.getId();
-//    	if(competitionDao.get(id) == null) {
-//    		return null;
-//    	}
-//    	competitionDao.put(id, swimmer);
-//        return swimmer;
-//    }
-//
-//    @DELETE
-//    @Timed
-//    @Path("/{id}")
-//    //Example: DELETE http://localhost:9000/swimmers/111
-//    public Swimmer deleteSwimmer(@PathParam("id") String id) {
-//    	Swimmer deleted = competitionDao.remove(id);
-//    	return deleted;
-//    }
-//
-//
 }

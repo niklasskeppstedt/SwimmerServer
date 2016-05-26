@@ -1,13 +1,13 @@
 package se.skeppstedt.swimmer.dropwizard.api;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Session {
+public class Session implements Comparable<Session>{
 	private int sessionId;
-	private Set<ProgramEvent> sessionEvents = new HashSet<>();
+	private Set<ProgramEvent> sessionEvents = new TreeSet<>();
 	
 	public Session(int sessionId) {
 		this.sessionId = sessionId;
@@ -19,7 +19,7 @@ public class Session {
 	}
 	
 	@JsonProperty
-	public Set<ProgramEvent> getSessionEvents() {
+	public Set<ProgramEvent> getEvents() {
 		return sessionEvents;
 	}
 	
@@ -30,6 +30,11 @@ public class Session {
 	@Override
 	public String toString() {
 		return "Session [sessionId=" + sessionId + ", sessionEvents=" + sessionEvents + "]";
+	}
+
+	@Override
+	public int compareTo(Session otherSession) {
+		return sessionId - otherSession.getSessionId();
 	}
 	
 }
