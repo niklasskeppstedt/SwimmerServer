@@ -24,6 +24,7 @@ import se.skeppstedt.swimmer.dropwizard.api.livetiming.Competition;
 import se.skeppstedt.swimmer.dropwizard.api.livetiming.EventStart;
 import se.skeppstedt.swimmer.dropwizard.api.livetiming.ProgramEvent;
 import se.skeppstedt.swimmer.dropwizard.api.livetiming.Session;
+import se.skeppstedt.swimmer.dropwizard.api.octo.Swimmer;
 import se.skeppstedt.swimmer.octo.LiveTimingParser;
 
 @Produces(MediaType.APPLICATION_JSON)
@@ -101,6 +102,19 @@ public class CompetitionResource {
     	}
     	return eventStart;
     }
+    
+    @GET
+    @Timed
+    @Path("/{competitionId}/events/{eventId}/{startIndex}/swimmer")
+    //Example: GET http://localhost:9000/competitions/2703/events/1/swimmer
+    public Swimmer getSwimmer(@PathParam("competitionId") int competitionId, @PathParam("eventId") int eventId, @PathParam("startIndex") int startIndex) {
+		SwimmersResource resource = rc.getResource(SwimmersResource.class);
+		Swimmer searchTerm = new Swimmer("", "Elias", "Skeppstedt", "", "", "");
+		Swimmer swimmer = resource.searchSwimmer(null, searchTerm).stream().findFirst().orElse(null);
+		return swimmer;
+    }
+
+
 
     @GET
     @Timed
